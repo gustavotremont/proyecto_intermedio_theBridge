@@ -7,6 +7,8 @@ const errors = require('./middlewares/errors');
 
 /****************** Import routes ******************/
 const indexRoutes = require('./routes/index')
+const ApiRoutes = require('./routes/routeApi')
+
 
 /****************** Enable Express ******************/
 const app = express()
@@ -24,6 +26,7 @@ app.set('views','./views');
 
 /****************** Routes ******************/
 app.use('/', indexRoutes);
+app.use('/', ApiRoutes);
 
 //Capture All 404 errors
 app.use( errors.error404);
