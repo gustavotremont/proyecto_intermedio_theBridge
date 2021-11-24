@@ -5,105 +5,39 @@ const routes = express.Router();
 
 //********************RUTAS POST *****************/
 //ruta para registrarse en la app
-routes.post('/api/user', (req, res) => {
-    res.json({
-        "email": "mm@gmail.com",
-        "password": "123456",
-        "Nombre":"Maria",
-        "Apellidos":"Garcia",
-        "cv":"curriculum"
-    })
-})
+routes.post('/api/user', controllerApi.register)
+
 //Ruta para login
-routes.post('/api/login', (req, res) => {
-    res.json({
-        "email": "mm@gmail.com",
-        "password": "123456"
-    })
-})
+routes.post('/api/login',controllerApi.login )
 //Ruta para logout
-routes.post('/api/logout', (req, res) => {
-    res.json({
-        "email": "mm@gmail.com",
-        "password": "123456"
-    })
-})
+routes.post('/api/logout', controllerApi.logout)
 
 //Crear una oferta de trabajo
-routes.post('/api/ads', controllerApi.creaOferta)
+routes.post('/api/ads', controllerApi.createOfert)
 
 //Ruta para favoritos
-routes.post('/api/favorites', (req, res) => {
-    res.json({
-        
-    })
-})
+routes.post('/api/favorites', controllerApi.favorites)
 
 /************************ RUTAS PUT ******** ************/
 // Editar datos del perfil de usuario
-routes.put('/api/user', (req, res) => {
-    res.json({
-        "email": "mm@gmail.com",
-        "password": "123456"
-        
-    })
-})
+routes.put('/api/user', controllerApi.editUser)
 
 //Editar datos de una oferta de trabajo 
-routes.put('/api/ads', (req, res) => {
-    res.json({
-        "Puesto": "Developer",
-        "Nombre_empresa": " CES",
-        "Localizacion": "Madrid",
-        "Requisitos": " javascript",
-        "Descripcion": "L a V 9 A 15h pm",
-        
-    })
-})
+routes.put('/api/ads', controllerApi.editOfert)
 
 /******************** RUTAS DELETE ************************/
-//// Borrar a un usuario de la base de datos(admin)
-routes.delete('/api/user/', (req, res) => { //?? en el ejericcio piden /api/user/ads ??
-    res.json({
-        "email": "mm@gmail.com",
-        "password": "123456",
-        "Nombre":"Maria",
-        "Apellidos":"Garcia",
-        "cv":"curriculum"
-        
-    })
-})
+// Borrar a un usuario de la base de datos(admin)
+routes.delete('/api/user/', controllerApi.deleteUser)
 
 //Borrar oferta de trabajo
-routes.delete('/api/ads', (req, res) => {
-    res.json({
-        "Puesto": "Developer",
-        "Nombre_empresa": " CES",
-        "Localizacion": "Madrid",
-        "Requisitos": " javascript",
-        "Descripcion": "L a V 9 A 15h pm",
-        
-    })
-})
+routes.delete('/api/ads', controllerApi.deleteOfert)
 
 //Borrar favoritos
-routes.delete('/api/favorites', (req, res) => {
-    res.json({
-        
-    })
-})
-
+routes.delete('/api/favorites', controllerApi.deleteFavorites)
 
 /* **************** RUTAS PARA GET  *******************/
 //Ruta para Listado de resultados de la busqueda
-routes.get('/api/search', (req, res) => {
-    res.json({
-        "Puesto": "Developer",
-        "Requisitos": " javascript",
-        "Descripcion": "L a V 9 A 15h pm",
-        
-    })
-})
+routes.get('/api/search', controllerApi.listSearch)
 
 
 module.exports = routes;
