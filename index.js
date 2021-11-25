@@ -6,10 +6,11 @@ const logger = require('morgan');
 const errors = require('./middlewares/errors');
 
 /****************** Import routes ******************/
-const indexRoutes = require('./routes/index');
-const   usersRotes = require('./routes/users')
-const  adminRotes = require('./routes/admin')
 
+const indexRoutes = require('./routes/index');
+const usersRotes = require('./routes/users')
+const adminRotes = require('./routes/admin')
+const ApiRoutes = require('./routes/routeApi')
 
 /****************** Enable Express ******************/
 const app = express()
@@ -31,7 +32,7 @@ app.set('views','./views');
 app.use('/', indexRoutes);
 app.use('/', usersRotes);
 app.use('/', adminRotes);
-
+app.use('/', ApiRoutes);
 
 //Capture All 404 errors
 app.use( errors.error404);
