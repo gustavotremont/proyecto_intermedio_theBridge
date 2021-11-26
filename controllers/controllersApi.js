@@ -1,10 +1,12 @@
+
+const User = require('../models/users')
 //Funcion que pinta nuestros datos en home
 const home = (req,res) =>{
     res.json()
 }
 
 // funcion para registrarse en la api
-const register = ( req, res) => {
+const register = async ( req, res) => {
     const dataRegister = {
         "email": "mm@gmail.com",
         "password": "123456",

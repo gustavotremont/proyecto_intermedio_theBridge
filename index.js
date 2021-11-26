@@ -1,6 +1,7 @@
 /****************** Nodejs Dependencies ******************/
 const express = require('express')
 const logger = require('morgan');
+require('dotenv').config() // carga fichero variables de entorno
 
 /****************** Project Dependencies ******************/
 const errors = require('./middlewares/errors');
