@@ -5,6 +5,11 @@ const logger = require('morgan');
 /****************** Project Dependencies ******************/
 const errors = require('./middlewares/errors');
 
+/****************** Lanza la BBDD de Mongo ******************/
+require('./utils/dbMongo') 
+require('dotenv').config() // carga fichero variables de entorno
+
+
 /****************** Import routes ******************/
 
 const indexRoutes = require('./routes/index');
@@ -38,6 +43,8 @@ app.use('/', ApiRoutes);
 app.use( errors.error404);
 
 /****************** Actice Server ******************/
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`ServerOn http://localhost:${port}`)
 })
+
+module.exports = server;

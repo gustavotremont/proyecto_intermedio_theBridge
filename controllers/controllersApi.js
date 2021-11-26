@@ -47,6 +47,7 @@ const createOfert =  (req,res) => {
     return res.status(201).json(dataOfert) //devuelven los datos del json
 }
 
+
 //funcion favoritos
 const favorites = (req, res) => {
     const dataFavorites = {
