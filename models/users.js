@@ -1,5 +1,4 @@
-
-
+//Importar postgresql
 const { Pool } = require('pg');
 const pool = new Pool({
     user: process.env.USER,
@@ -11,8 +10,6 @@ const pool = new Pool({
 
 
 //funcion para crear usuarios//
-
-
 const createUser = async (userInfo) => {
     const {name, email, password, age, tlf, dni} = userInfo;
     let user,result;
