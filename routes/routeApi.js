@@ -13,31 +13,20 @@ routes.post('/api/login',controllerApi.login )
 routes.post('/api/logout', controllerApi.logout)
 
 //Crear una oferta de trabajo
-routes.post('/api/ads', controllerApi.createOfert)
-
-//Ruta para favoritos
-routes.post('/api/favorites', controllerApi.favorites)
+routes.post('/api/ads', controllerApi.createOffer)
 
 /************************ RUTAS PUT ******** ************/
-// Editar datos del perfil de usuario
-routes.put('/api/user', controllerApi.editUser)
-
 //Editar datos de una oferta de trabajo 
-routes.put('/api/ads', controllerApi.editOfert)
+routes.put('/api/ads', controllerApi.updateOffert)
 
 /******************** RUTAS DELETE ************************/
-// Borrar a un usuario de la base de datos(admin)
-routes.delete('/api/user/', controllerApi.deleteUser)
-
 //Borrar oferta de trabajo
-routes.delete('/api/ads', controllerApi.deleteOfert)
+routes.delete('/api/ads', controllerApi.deleteOffert)
 
-//Borrar favoritos
-routes.delete('/api/favorites', controllerApi.deleteFavorites)
 
 /* **************** RUTAS PARA GET  *******************/
 //Ruta para Listado de resultados de la busqueda
-routes.get('/api/search', controllerApi.listSearch)
+// routes.get('/api/search', controllerApi.listSearch)
 
 
 module.exports = routes;
