@@ -2,11 +2,7 @@
 const mongoose = require('mongoose');
 
 const objectSchema = {
-    user_id: { 
-        type: Number, 
-        required: true,
-        unique: true
-    },
+    
     title: { 
         type: String, 
         required: true 
@@ -36,8 +32,8 @@ const objectSchema = {
     },
 };
 // Crear el esquema
-const productSchema = mongoose.Schema(objectSchema);
+const offerSchema = mongoose.Schema(objectSchema);
 // Crear el modelo
-const Offer = mongoose.model('Offer', productSchema);
+const Offer = mongoose.model('Offer', offerSchema);
 
 module.exports = Offer;
