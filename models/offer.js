@@ -29,7 +29,7 @@ const objectSchema = {
         type: String,
         required: true 
         
-    },
+    }
 };
 // Crear el esquema
 const offerSchema = mongoose.Schema(objectSchema);
