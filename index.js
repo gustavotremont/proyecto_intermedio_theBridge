@@ -6,6 +6,12 @@ require('dotenv').config() // carga fichero variables de entorno
 /****************** Project Dependencies ******************/
 const errors = require('./middlewares/errors');
 
+/****************** Lanza la BBDD de Mongo ******************/
+require('dotenv').config() // carga fichero variables de entorno tiene que estar primero.
+require('./utils/dbMongo') 
+
+
+
 /****************** Import routes ******************/
 
 const indexRoutes = require('./routes/index');
@@ -39,6 +45,8 @@ app.use('/', ApiRoutes);
 app.use( errors.error404);
 
 /****************** Actice Server ******************/
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`ServerOn http://localhost:${port}`)
 })
+
+module.exports = server;
