@@ -6,8 +6,9 @@ const logger = require('morgan');
 const errors = require('./middlewares/errors');
 
 /****************** Lanza la BBDD de Mongo ******************/
+require('dotenv').config() // carga fichero variables de entorno tiene que estar primero.
 require('./utils/dbMongo') 
-require('dotenv').config() // carga fichero variables de entorno
+
 
 
 /****************** Import routes ******************/
