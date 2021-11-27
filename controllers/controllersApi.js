@@ -1,3 +1,6 @@
+const dataOffer = require('../utils/dbMongo')
+const Offer = require('../models/offer')
+
 //Funcion que pinta nuestros datos en home
 const home = (req,res) =>{
     res.json()
@@ -33,112 +36,82 @@ const logout = (req, res) => {
     return res.status(200).json(dataLogout)
 }
 
+//Esperar al scrapping
+// const listSearch = async (req, res) => {
+//     try{
+//         let  dataSearch = await Offer.find({'title': req.body.title}) // quita los campos _id y __v
+//         res.status(200).json(dataSearch) // Devuelve el producto buscado
+//         } 
+//     catch(err){
+//         res.status(400).json({"error":err})
+    
+//     } 
+// } 
 
-//funcion para crear oferta
-const createOfert =  (req,res) => {
-    const dataOfert = {
-        "Puesto": "Programador", //aqui tiene que ir la llamada a los datos del pug req.body.title por ej
-        "Nombre_empresa": " CES",
-        "Localizacion": "Madrid",
-        "Requisitos": "Css / javascript",
-        "Descripcion": "L a V 9 A 15h pm",
-        "Mensaje": `Se ha guardado la oferta correctamente`,
-    }
-    return res.status(201).json(dataOfert) //devuelven los datos del json
+//MongoDB ----funcion para crear oferta
+const createOffer = async (req,res) => {
+    try{
+        const offer = new Offer(req.body); // Genero el nuevo documento
+        const result = await offer.save(); // Lo guarda en BBDD
+        res.status(201).json(result);
+    } catch(err){
+        res.status(400).json({"error":err})
+    }  
 }
 
-
-//funcion favoritos
-const favorites = (req, res) => {
-    const dataFavorites = {
-        
-    }
-    return res.status(201).json(dataFavorites)
-}
-
-
-//funcion para editar perfil de usuario
- const editUser = (req, res) => {
-    const dataEditUser = {
-        "email": "mm@gmail.com",
-        "password": "123456"   
-    }
-    return res.status(201).json(dataEditUser)
+// // MONGOSB -------Funcion para Buscar datos de una oferta de trabajo
+const getOffers = async (req, res) => {
+    try{
+        console.log(req.params.id);
+        if(req.params.id){
+            let dataSearch = await Offer.findById(req.params.id);
+            console.log(dataSearch);
+            res.status(200).json(dataSearch) // devuelve una oferta por id
+        } else {
+            let dataSearch = await Offer.find({});
+            res.status(200).json({offers: dataSearch}) // Devuelve todos las ofertas
+        }
+    } 
+    catch(err){
+        res.status(400).json({"error":err})
+    } 
 } 
 
-// Funcion para Editar datos de una oferta de trabajo 
-const editOfert = (req, res) => {
-    const dataEditOfert = {
-        "Puesto": "Developer",
-        "Nombre_empresa": " CES",
-        "Localizacion": "Madrid",
-        "Requisitos": " javascript",
-        "Descripcion": "L a V 9 A 15h pm",
-        
+// MONGOSB -------Funcion para Editar datos de una oferta de trabajo 
+const updateOffert = async (req, res) => {
+    try {
+        let editOffer = await Offer.findById(req.body.id);
+        editOffer.description = req.body.newDescription;
+        let result = editOffer.save();
+        res.status(200).json(result);
     }
-    return res.status(201).json(dataEditOfert)
-}
+    catch(err){
+        res.status(400).json({"error":err});
+    }; 
+};
 
-// Funcion para Borrar a un usuario de la base de datos(admin)
-const deleteUser = (req, res) => { //?? en el ejericcio piden /api/user/ads ??
-    const dataUser = {
-        "email": "mm@gmail.com",
-        "password": "123456",
-        "Nombre":"Maria",
-        "Apellidos":"Garcia",
-        "cv":"curriculum"
-        
+//MondoDB ---------- Funcion Borrar oferta de trabajo
+const deleteOffert = async (req, res) => {
+    try {
+        let editOffer = await Offer.findById(req.body.id); //primero busca la oferta
+        let result = editOffer.remove();  // luego borra la oferta
+        res.status(200).json(result);
     }
-    return res.status(201).json(dataUser)
+    catch(err){
+        res.status(400).json({"error":err})
+    } 
 }
-
-//Funcion Borrar oferta de trabajo
-const deleteOfert = (req, res) => {
-    const dataDeleteOfert = {
-        "Puesto": "Developer",
-        "Nombre_empresa": " CES",
-        "Localizacion": "Madrid",
-        "Requisitos": " javascript",
-        "Descripcion": "L a V 9 A 15h pm",
-        
-    }
-    return res.status(201).json(dataDeleteOfert)
-}
-
-//Funcion Borrar favoritos
-const deleteFavorites = (req, res) => {
-   const dataDeleteavorites = {
-        
-    }
-    return res.status(201).json(dataDeleteavorites)
-}
-
-// Funcion para Listado de resultados de la busqueda
-const listSearch = (req, res) => {
-    const dataSearch = {
-        "Puesto": "Developer",
-        "Requisitos": " javascript",
-        "Descripcion": "L a V 9 A 15h pm",
-        
-    }
-    return res.status(201).json(dataSearch)
-}
-
-
+ 
 const trabajo ={
     home,
     register,
     login,
-    createOfert,
     logout,
-    favorites,
-    editUser,
-    editOfert,
-    deleteUser,
-    deleteOfert,
-    deleteFavorites,
-    listSearch
-    
+    createOffer,
+    getOffers,
+    updateOffert,
+    deleteOffert
 }
 
 module.exports = trabajo;
+    
