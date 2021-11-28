@@ -1,1 +1,59 @@
-/* ADD CSS AND CHANGE NAME */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dropdown{
+    height: 0%;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #002626;
+    overflow-y: hidden;
+    transition: 0.5s;
+}
+
+.dropdown-list{
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.dropdown a{
+    padding: 10px;
+    text-decoration: none;
+    font-size: 30px;
+    color: gray;
+    display: block;
+    transition: 0.3s;
+}
+
+.dropdown a:hover, .dropdown a:focus {
+    color: whitesmoke;
+}
+
+#hamburger {
+    position: relative;
+    color: #0e4749;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.dropdown #buttonX {
+    text-align: end;
+    font-size: 50px;
+    color: #73937e;
+    cursor: pointer;
+    display: block;
+    transition: 0.3s;
+    padding: 10px;
+}
