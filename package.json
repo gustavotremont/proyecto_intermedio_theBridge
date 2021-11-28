@@ -19,11 +19,14 @@
   "homepage": "https://github.com/gustavotremont/project_template#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "mongoose": "^6.0.13",
     "morgan": "^1.10.0",
     "node-fetch": "^2.6.6",
+    "pg": "^8.7.1",
     "pug": "^3.0.2"
   },
   "devDependencies": {
+    "dotenv": "^10.0.0",
     "jest": "^27.3.1"
   }
 }

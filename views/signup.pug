@@ -1,0 +1,30 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Document
+    body 
+        h2 Crea tu cuenta 
+        br
+        h2  Datos personales
+        h3  Nombre 
+         form(action="/signup" method="POST")
+         input#inputFormSignup(type='text' name='search1' placeholder='nombre' required='')
+         br
+         h3 Primer Apellido
+         input#inputSignup2(type='text' name='search2' placeholder='apellido' required='')
+         br
+         br
+         br
+         h2  Datos de tu cuenta
+         h3 Email
+         input#inputSignup3(type='email' name='search2' placeholder='email' required='')
+         br
+         h3 Contraseña
+         input#inputSignup4(type='text' name='search2' placeholder='contraseña' required='')
+         br
+         br
+         input#btnSearchSignup(type='submit')
+         br
