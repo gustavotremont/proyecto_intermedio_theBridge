@@ -1,15 +1,10 @@
-var express = require("express");
-var router = express.Router();
+const express = require('express');
+const routes = express.Router();
 
 const favorite = require("../controllers/favorite");
 const user = require("../controllers/user");
 
-// /* GET favorites. */
-router.get("/favorites/:email", favorite.getFavorites);
-router.post("/favorite", favorite.createFavorite);
-router.delete("/favorite", favorite.deleteFavorite);
+routes.get("/favorites/", favorite.getFavorite); //Mostart Favoritos del Usuario Logeado
+routes.get("/profile/:email", user.getUser); //Mostart Perfil del Usuario Logeado
 
-// /* GET profile. */
-router.get("/profile/:email", user.getUserByEmail);
-
-module.exports = router;
+module.exports = routes;

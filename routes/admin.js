@@ -1,19 +1,10 @@
-var express = require("express");
-var router = express.Router();
+const express = require('express');
+const routes = express.Router();
 
+const user = require('../controllers/user')
+const offer = require("../controllers/offer");
 
-const controllerApi = require('../controllers/controllersApi')
-const admin = require("../controllers/admin");
+routes.get("/user", user.getUser); //Mostrar Lista de Usuarios
+routes.get('/dashboard', offer.getOffers)
 
-
-/* GET users */
-router.get("/user/:email?", admin.getUser);
-router.post("/user", admin.createUser);
-router.delete("/user", admin.deleteUser);
-router.put("/user", admin.updateUser);
-
-/* GET dashboard. */
-router.get('/dashboard/:id?', controllerApi.getOffers)
-
-
-module.exports = router;
+module.exports = routes;
