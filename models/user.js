@@ -1,22 +1,7 @@
-//Importar postgresql
-const { Pool } = require("pg");
-const pool = new Pool({
-    user: process.env.USER,
-    host: process.env.HOST,
-    database: process.env.DATABASE,
-    password: process.env.PASSWORD,
-});
-
-// const { Pool } = require("pg");
-// const pool = new Pool({
-//     user: "postgres",
-//     host: "localhost",
-//     database: "intermedio_users",
-//     password: "1234",
-// });
+const pool = require('../utils/dbPostgres')
 
 //funcion para crear usuarios//
-const createUser = async userInfo => {
+const createUser = async (userInfo) => {
     const { name, email, password, age, tlf, dni } = userInfo;
     let user, result;
     try {
@@ -26,7 +11,6 @@ const createUser = async userInfo => {
                                     VALUES ($1,$2,$3,$4,$5,$6,$7);`,
             [name, email, password, age, tlf, dni, 2]
         );
-
         result = data.rowCount;
     } catch (err) {
         console.log(err);
@@ -55,7 +39,7 @@ const getAllUsers = async () => {
 
 // funcion de obtener un usuario //
 
-const getUser = async email => {
+const getUser = async (email) => {
     let user, result;
     try {
         user = await pool.connect(); // Espera a abrir conexion
@@ -95,9 +79,6 @@ const deleteUser = async (email, password) => {
     return result;
 };
 
-// UPDATE public.users
-// 	SET user_id=?, user_name=?, user_email=?, user_password=?, user_age=?, user_tlf=?, user_dni=?, user_type=?
-// 	WHERE <condition>;
 
 const updateUser = async (email, password, newPassword) => {
     let user, result;
@@ -126,12 +107,12 @@ const updateUser = async (email, password, newPassword) => {
 // getUser('michelle@gmail.com').then(data => console.log(data)) //FUNCIONA
 
 // const newUser = {
-//     name: "Isa",
-//     email: "isaguapo@gmail.com",
-//     password: "987654321",
-//     age: 31,
-//     tlf: "123456789",
-//     dni:"90853512A"
+//     name: "gustavo",
+//     email: "gustavo@gmail.com",
+//     password: "123456789",
+//     age: 24,
+//     tlf: "659513187",
+//     dni:"09853571A"
 
 // }
 // createUser(newUser)
@@ -140,7 +121,7 @@ const updateUser = async (email, password, newPassword) => {
 // deleteUser("gus@school.com", "12345").then(data => console.log(data)); //FUNCIONA
 // updateUser('isaguapo@gmail.com','987654321','soylanuevacontraseña').then(data => console.log(data)); //FUNCIONA
 
-const users = {
+const User = {
     createUser,
     getAllUsers,
     getUser,
@@ -148,4 +129,4 @@ const users = {
     deleteUser,
 };
 
-module.exports = users;
+module.exports = User;

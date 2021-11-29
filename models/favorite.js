@@ -1,22 +1,7 @@
-//Importar postgresql
-// const { Pool } = require("pg");
-// const pool = new Pool({
-//     user: process.env.USER,
-//     host: process.env.HOST,
-//     database: process.env.DATABASE,
-//     password: process.env.PASSWORD,
-// });
-
-const { Pool } = require("pg");
-const pool = new Pool({
-    user: "postgres",
-    host: "localhost",
-    database: "intermedio_users",
-    password: "1234",
-});
+const pool = require('../utils/dbPostgres')
 
 //funcion para crear favoritos//
-const createFavorite = async favoriteInfo => {
+const createFavorite = async (favoriteInfo) => {
     const {
         title,
         companyName,
@@ -44,8 +29,29 @@ const createFavorite = async favoriteInfo => {
     return result;
 };
 
+const getFavorite = async (favoriteId) => {
+    let user, result;
+    try {
+        user = await pool.connect(); // Espera a abrir conexion
+        const data = await user.query(
+            `
+            SELECT * FROM favorites
+            WHERE favorite_id = $1;
+        `,
+            [favoriteId]
+        );
+        result = data.rows;
+    } catch (err) {
+        console.log(err);
+        throw err;
+    } finally {
+        user.release();
+    }
+    return result;
+};
+
 // funcion para obtener los favoritos de un usuario //
-const getAllFavoritesByUser = async userEmail => {
+const getAllFavoritesByUser = async (userEmail) => {
     let user, result;
     try {
         user = await pool.connect(); // Espera a abrir conexion
@@ -89,7 +95,7 @@ const deleteFavorite = async favoriteId => {
     return result;
 };
 
-// pruebas
+/////////////////////////////////// PRUEBAS //////////////////////////////////
 // getAllFavoritesByUser("isaguapo@gmail.com").then(data => console.log(data)); //FUNCIONA
 
 // const newFavorite = {
@@ -106,10 +112,10 @@ const deleteFavorite = async favoriteId => {
 
 // deleteFavorite(2).then(data => console.log(data)); //FUNCIONA
 
-const favorites = {
+const Favorite = {
     createFavorite,
     getAllFavoritesByUser,
     deleteFavorite,
 };
 
-module.exports = favorites;
+module.exports = Favorite;
