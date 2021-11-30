@@ -7,4 +7,5 @@ const offer = require("../controllers/offer");
 routes.get("/user", user.getUser); //Mostrar Lista de Usuarios
 routes.get('/dashboard', offer.getOffers)
 
+
 module.exports = routes;

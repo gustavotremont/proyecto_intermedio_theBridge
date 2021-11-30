@@ -1,4 +1,4 @@
-const User = require("../models/users");
+const User = require("../models/user");
 
 const createUser = async (req, res) => {
     try {
@@ -13,10 +13,10 @@ const getUser = async (req, res) => {
     try {
         if (req.params.email) {
             const result = await User.getUser(req.params.email);
-            res.status(200).json(result);
+            res.status(200).render('profile',{profile:result});
         } else {
             const result = await User.getAllUsers();
-            res.status(200).json({ users: result });
+            res.status(200).render('users',{result:result});
         }        
     } catch (err) {
         res.status(400).json({"error":err})
@@ -39,7 +39,7 @@ const updateUser = async (req, res) => {
             req.body.password,
             req.body.newPassword
         );
-        res.status(200).send("La clave del ususario a sido cambiada");
+        res.status(200).send("La clave del ususario ha sido cambiada");
     } catch (err) {
         res.status(400).json({"error":err})
     }
