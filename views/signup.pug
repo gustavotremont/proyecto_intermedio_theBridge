@@ -9,17 +9,23 @@ html(lang="en")
         h2 Crea tu cuenta 
         br
         h3  Datos personales
-        form(action="/user" method="POST")
-         input#inputFormSignup(type='text' name='name' placeholder='nombre' required='')
-         br
-         input#inputSignup2(type='email' name='email' placeholder='email' required='')
-         br
-         input#inputSignup3(type='password' name='password' placeholder='contraseña' required='')
-         br
-         input#inputSignup4(type='text' name='age' placeholder='edad' required='')
-         br
-         input#inputSignup4(type='text' name='tlf' placeholder='tlf' required='')
-         br
-         nput#inputSignup4(type='text' name='dni' placeholder='dni' required='')
-         br
-         input#btnSearchSignup(type='submit')
+        form(action="/api/user" method="POST")
+            p Nombre
+            input#inputFormSignup(type='text' name='nameSignup' placeholder='nombre' required='')
+            br
+            p Email
+            input#inputSignup2(type='email' name='emailSignup' placeholder='email' required='')
+            br
+            p Contraseña
+            input#inputSignup3(type='password' name='passwordSignup' placeholder='contraseña' required='')
+            br
+            p Edad
+            input#inputSignup4(type='text' name='ageSignup' placeholder='edad' required='')
+            br
+            p Teléfono 
+            input#inputSignup4(type='text' name='tlfSignup' placeholder='tlf' required='')
+            br
+            p DNI
+            input#inputSignup4(type='text' name='dniSignup' placeholder='dni' required='')
+            br
+            input#btnSearchSignup(type='submit')

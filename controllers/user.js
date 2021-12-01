@@ -3,7 +3,7 @@ const User = require("../models/user");
 const createUser = async (req, res) => {
     try {
         const result = await User.createUser(req.body);
-        res.status(201).send("nuevo usuario creado");        
+        res.status(201).redirect('/login'); 
     } catch (err) {
         res.status(400).json({"error":err})
     }    
