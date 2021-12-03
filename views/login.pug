@@ -5,17 +5,17 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Document
+        link(rel="stylesheet", href="/css/styles.css")
     body 
-     h2 Accede como candidato
-        br
-       
-        h3  Email  
-         form(action="/login" method="POST")
-         input#inputFormlogin(type='email' name='search1' placeholder='email' required='')
-         br
-         h3 Contraseña
-         input#inputLogin2(type='text' name='search2' placeholder='contraseña' required='')
-         br
-         br
-         input#btnSearchLogin(type='submit')
+    h2 Accede como candidato
+
+    h3 Email  
+    form#loginForm(action="/api/login" method="POST")
+        label(for="loginEmail") 
+        input#loginEmail(type='email' name='loginEmail' placeholder='email' required)
+
+        label(for="loginPassword") 
+        input#loginPassword(type='password' name='loginPassword' placeholder='contraseña' required)
+
+        input#btnSearchLogin(type='submit' value='Login')
          
