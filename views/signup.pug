@@ -8,23 +8,24 @@ html(lang="en")
     body 
         h2 Crea tu cuenta 
         br
-        h2  Datos personales
-        h3  Nombre 
-         form(action="/signup" method="POST")
-         input#inputFormSignup(type='text' name='search1' placeholder='nombre' required='')
-         br
-         h3 Primer Apellido
-         input#inputSignup2(type='text' name='search2' placeholder='apellido' required='')
-         br
-         br
-         br
-         h2  Datos de tu cuenta
-         h3 Email
-         input#inputSignup3(type='email' name='search2' placeholder='email' required='')
-         br
-         h3 Contraseña
-         input#inputSignup4(type='text' name='search2' placeholder='contraseña' required='')
-         br
-         br
-         input#btnSearchSignup(type='submit')
-         br
+        h3  Datos personales
+        form(action="/api/user" method="POST")
+            p Nombre
+            input#inputFormSignup(type='text' name='nameSignup' placeholder='nombre' required='')
+            br
+            p Email
+            input#inputSignup2(type='email' name='emailSignup' placeholder='email' required='')
+            br
+            p Contraseña
+            input#inputSignup3(type='password' name='passwordSignup' placeholder='contraseña' required='')
+            br
+            p Edad
+            input#inputSignup4(type='text' name='ageSignup' placeholder='edad' required='')
+            br
+            p Teléfono 
+            input#inputSignup4(type='text' name='tlfSignup' placeholder='tlf' required='')
+            br
+            p DNI
+            input#inputSignup4(type='text' name='dniSignup' placeholder='dni' required='')
+            br
+            input#btnSearchSignup(type='submit')

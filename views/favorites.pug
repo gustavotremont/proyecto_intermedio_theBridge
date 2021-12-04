@@ -7,3 +7,12 @@ html(lang="en")
         title Document
     body 
     h1 Listado de favoritos de los usuarios
+        each users in favorites
+            p #{users.favorite_title}
+            p #{users.favorite_companyName}
+            p #{users.favorite_description}
+            p #{users.favorite_salary}
+            p #{users.favorite_location}
+            p #{users.favorite_url}
+            p #{users.favorite_userEmail}
+            hr

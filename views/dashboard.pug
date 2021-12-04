@@ -4,6 +4,42 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Document
+        title Ads
     body 
-    h1 Vista del administrador para crear anuncios
+        div 
+            a(href='/dashboard/create') Crear Oferta   
+            a(href='/dashboard/update') Actualizar Oferta
+            a(href='/dashboard/delete') Borrar Oferta
+
+        if action === 'create'
+            h1 Crear Oferta
+            form(action="/dashboard" method="POST")
+                    input#inputFormHome(type='text' name='title' placeholder='Nombre Oferta' required='')
+                    br
+                    input#inputFormHome(type='text' name='companyName' placeholder='Nombre Empresa' required='')
+                    br
+                    input#inputFormHome(type='text' name='description' placeholder='Descripción' required='')
+                    br
+                    input#inputFormHome(type='text' name='salary' placeholder='Salario' required='')
+                    br
+                    input#inputFormHome(type='text' name='location' placeholder='Localización' required='')
+                    br
+                    input#inputFormHome(type='text' name='URL' placeholder='URL' required='')
+                    br
+        else if action === 'update'
+            h1 Editar oferta
+                form(action="/update" method="PUT")
+                    input#inputFormHome2(type='text' name='offer2' placeholder='Busque por nombre..' required='')
+                    br
+        else if action === 'delete'
+            h1 Borrar oferta 
+            form(action="/delete" method="DELETE")
+                input#inputFormHome2(type='text' name='offer3' placeholder='Busque por nombre..' required='')
+                br
+                input#btnSearchHome(type='submit')
+        else
+            h1 Esto son todas las ofertas de trabajo
+            each offers in result
+                p #{offers.title}
+                p #{offers.companyName}
+                p #{offers.salary}      

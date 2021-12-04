@@ -1,15 +1,15 @@
 const pool = require('../utils/dbPostgres')
 
 //funcion para crear usuarios//
-const createUser = async (userInfo) => {
-    const { name, email, password, age, tlf, dni } = userInfo;
+const createUser = async (userInfo) => {   //userinfo =req.body de controllers
+    const { nameSignup, emailSignup, passwordSignup, ageSignup, tlfSignup, dniSignup } = userInfo;
     let user, result;
     try {
         user = await pool.connect(); // Espera a abrir conexion
         const data = await user.query(
             `INSERT INTO users(user_name, user_email, user_password, user_age, user_tlf, user_dni, user_type) 
                                     VALUES ($1,$2,$3,$4,$5,$6,$7);`,
-            [name, email, password, age, tlf, dni, 2]
+            [nameSignup, emailSignup, passwordSignup, ageSignup, tlfSignup, dniSignup, 2]
         );
         result = data.rowCount;
     } catch (err) {
@@ -20,6 +20,7 @@ const createUser = async (userInfo) => {
     }
     return result;
 };
+
 
 // funcion para obtener todos los usuarios //
 const getAllUsers = async () => {
