@@ -127,12 +127,12 @@ const updateUser = async (email, password, newPassword) => {
 // getUser('gustavotremontsr@gmail.com').then(data => console.log(data)) //FUNCIONA
 
 // const newUser = {
-//     name: "Gustavo Tremont",
-//     email: "gustavotremontsr@gmail.com",
-//     password: "pokemon2000",
-//     age: 24,
-//     tlf: "659513187",
-//     dni:"09853571A"
+//     name: "Isa Guapo",
+//     email: "isaguapo@gmail.com",
+//     password: "thebridge",
+//     age: 35,
+//     tlf: "351698492",
+//     dni:"09653284A"
 
 // }
 // createUser(newUser)

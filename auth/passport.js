@@ -2,7 +2,7 @@ const passportJWT = require('passport-jwt');
 const User = require('../models/user')
 
 const JwtStrategy = passportJWT.Strategy;
-const ExtractJwt = passportJWT.ExtractJwt;
+// const ExtractJwt = passportJWT.ExtractJwt;
 
 // usar con cookie-parser
 const cookieExtractor = (req) => {
@@ -17,8 +17,7 @@ opts.secretOrKey = process.env.JWT_SECRET;
 
 const passportJWTStrategy = (passport) => {
     passport.use( new JwtStrategy(opts, async (jwtPayload, done) => {
-        const user = await User.getUser(jwtPayload.user.user_email);
-        console.log(user);
+        const user = await User.getUser(jwtPayload.email);
         if (user) {
             done(null, user);
         } else {

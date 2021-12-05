@@ -10,7 +10,7 @@ const passportJWTStrategy = require('../auth/passport')
 passportJWTStrategy(passport); //habilita el cliente
 
 routes.get("/favorites/", favorite.getFavorite); //Mostart Favoritos del Usuario Logeado
-routes.get("/profile/:email", passport.authenticate('jwt', {session: false}), user.getUser ); //Mostart Perfil del Usuario Logeado
+routes.get("/profile/:email?", passport.authenticate('jwt', {session: false}), user.getUser ); //Mostart Perfil del Usuario Logeado
 
 // routes.get("/profile/:email", passport.authenticate('jwt', {session: false}), (req, res) => {
 //     if (auth.isValidToken(req.cookies.access_token)) {

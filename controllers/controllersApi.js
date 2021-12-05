@@ -17,7 +17,7 @@ const login = async (req, res) => {
             const passwordMatch = await bcrypt.verifyPassword(req.body.loginPassword, user.user_password)
             if (passwordMatch) {
                 
-                const token = jwt.sign({ user: user }, process.env.JWT_SECRET, {
+                const token = jwt.sign({ email: user.user_email, role: user.user_type }, process.env.JWT_SECRET, {
                     expiresIn: '1d'
                 });
 
@@ -27,11 +27,7 @@ const login = async (req, res) => {
                     httpOnly: true,
                 })
                 .status(200)
-                .json({
-                    success: true,
-                    user: user,
-                    token: token
-                })
+                .redirect('/')
             }else {
                 res.status(400).json({"error":'las contraseñas no coinciden'})
             }
@@ -47,7 +43,7 @@ const login = async (req, res) => {
 const logout = (req, res) => {
     if (req.cookies['access_token']) {
         res
-        .clearCookie('jwt')
+        .clearCookie('access_token')
         .status(200)
         .json({
             message: 'Sesion Finalizada!'
