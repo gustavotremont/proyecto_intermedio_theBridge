@@ -3,13 +3,18 @@ doctype html
 html
    head
       title home
+      link(rel="stylesheet", href="/css/styles.css")
    body
+         include ./header
          h1 Buscar Oferta
          form(action="/" method="POST")
-         input#inputFormHome(type='text' name='search1' placeholder='palabra clave' required='')
-         br
-         h1 En...
-         input#inputFormHome2(type='text' name='search2' placeholder='toda españa' required='')
-         br
-         br
-         input#btnSearchHome(type='submit')
+            input#inputFormHome(type='text' name='search1' placeholder='palabra clave' required='')
+            br
+            h1 En...
+            input#inputFormHome2(type='text' name='search2' placeholder='toda españa' required='')
+            br
+            br
+            input#btnSearchHome(type='submit')
+         form(action="/api/logout" method="POST")
+            input(type="submit", value="Salir de la sesion") 
+         script(src="/js/script.js") 

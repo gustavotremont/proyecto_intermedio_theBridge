@@ -5,14 +5,13 @@ header
         section#myMenu.dropdown 
             span#buttonX(href="javascript: void(0)") &times;
             div.dropdown-list
-                a(href="/") Home 
-                - let state = 'admin'
-                case state 
-                    when 'user'
+                a(href="/") Home
+                case role 
+                    when 2
                         a(href="/favorites") Favorites
                         a(href="/profile") Profile 
                         a(href="/logout") Logout
-                    when 'admin'
+                    when 1
                         a(href="/dashboard") Dashboard
                         a(href="/users") Users 
                         a(href="/profile") Profile

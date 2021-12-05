@@ -1,6 +1,4 @@
 const Favorite = require("../models/favorite");
-//console.log("eeeeeey es esto" , Favorite)
-
 
 //http://localhost:3000/favorites/?currectUserEmail=isabela@gmail.com
 const getFavorite = async (req, res) => {

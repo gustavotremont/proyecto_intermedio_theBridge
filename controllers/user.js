@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const jwt = require("jsonwebtoken");
 
 const createUser = async (req, res) => {
     try {
@@ -15,8 +16,11 @@ const getUser = async (req, res) => {
             const result = await User.getUser(req.params.email);
             res.status(200).render('profile',{profile:result});
         } else {
-            const result = await User.getAllUsers();
-            res.status(200).render('users',{result:result});
+            const token = req.cookies.access_token
+            const data = jwt.verify(token, process.env.JWT_SECRET);
+            res.redirect(`/profile/${data.email}`);
+            // const result = await User.getAllUsers();
+            // res.status(200).json({ users: result });
         }        
     } catch (err) {
         res.status(400).json({"error":err})
