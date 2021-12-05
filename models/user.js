@@ -3,15 +3,16 @@ const bcrypt = require('../utils/cryptPassword')
 
 //funcion para crear usuarios//
 const createUser = async (userInfo) => {
-    const { name, email, password, age, tlf, dni } = userInfo;
-    const cryptPassword = await bcrypt.hashPassword(password);
+    const { nameSignup, emailSignup, passwordSignup, ageSignup, tlfSignup, dniSignup } = userInfo;
+    const cryptPassword = await bcrypt.hashPassword(passwordSignup);
+
     let user, result;
     try {
         user = await pool.connect(); // Espera a abrir conexion
         const data = await user.query(
             `INSERT INTO users(user_name, user_email, user_password, user_age, user_tlf, user_dni, user_type) 
                                     VALUES ($1,$2,$3,$4,$5,$6,$7);`,
-            [name, email, cryptPassword, age, tlf, dni, 2]
+        [nameSignup, emailSignup, cryptPassword, ageSignup, tlfSignup, dniSignup, 2]
         );
         result = data.rowCount;
     } catch (err) {
@@ -22,6 +23,7 @@ const createUser = async (userInfo) => {
     }
     return result;
 };
+
 
 // funcion para obtener todos los usuarios //
 const getAllUsers = async () => {

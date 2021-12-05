@@ -1,13 +1,14 @@
 const Favorite = require("../models/favorite");
 
+//http://localhost:3000/favorites/?currectUserEmail=isabela@gmail.com
 const getFavorite = async (req, res) => {
     try {
         if(req.query.currectFavoriteId){
-            const result = await Favorite.getFavorite(req.query.currectFavoriteId);
-            res.status(200).json(result);
+            const favorites = await Favorite.getFavorite(req.query.currectFavoriteId);
+            res.status(200).render('favorites',{favorites:favorites});
         }else if(req.query.currectUserEmail) {
             const result = await Favorite.getAllFavoritesByUser(req.query.currectUserEmail);
-            res.status(200).json({ favorites: result });
+            res.status(200).render('favorites',{favorites:result});
         }else{
             res.status(400).json({"error":err})
         }   

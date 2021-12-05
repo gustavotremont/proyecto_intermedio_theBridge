@@ -6,7 +6,7 @@ require('../auth/auth');
 
 //Funcion que pinta nuestros datos en home
 const home = (req,res) =>{
-    res.json()
+    res.render('home')
 }
 
 //funcion para login

@@ -7,3 +7,10 @@ html(lang="en")
         title Document
     body 
     h1 vista de perfil de usuarios o Administrador con sus datos de perfil
+        each users in profile
+            p #{users.user_name}
+            p #{users.user_email}
+            p #{users.user_password}
+            p #{users.user_age}
+            p #{users.user_dni}
+            hr

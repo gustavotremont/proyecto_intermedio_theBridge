@@ -1,11 +1,10 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
-const { log } = require("npmlog");
 
 const createUser = async (req, res) => {
     try {
         const result = await User.createUser(req.body);
-        res.status(201).send("nuevo usuario creado");        
+        res.status(201).redirect('/login'); 
     } catch (err) {
         res.status(400).json({"error":err})
     }    
@@ -15,7 +14,7 @@ const getUser = async (req, res) => {
     try {
         if (req.params.email) {
             const result = await User.getUser(req.params.email);
-            res.status(200).json(result);
+            res.status(200).render('profile',{profile:result});
         } else {
             const token = req.cookies.access_token
             const data = jwt.verify(token, process.env.JWT_SECRET);
@@ -44,7 +43,7 @@ const updateUser = async (req, res) => {
             req.body.password,
             req.body.newPassword
         );
-        res.status(200).send("La clave del ususario a sido cambiada");
+        res.status(200).send("La clave del ususario ha sido cambiada");
     } catch (err) {
         res.status(400).json({"error":err})
     }
