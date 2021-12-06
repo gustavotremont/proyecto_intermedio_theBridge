@@ -5,9 +5,10 @@ const scrapingLinke = async keyword => {
     try {
         // Abre el navegador
         const browser = await puppeteer.launch({
-            headless: false,
+            headless: true,
             args: ["--fast-start", "--disable-extensions", "--no-sandbox"],
-            ignoreHTTPSErrors: true
+            ignoreHTTPSErrors: true,
+            defaultViewport: { width: 1366, height: 768 }  
         });
 
         // Abre nueva página  Linkedin sin registro de usuario
@@ -30,11 +31,26 @@ const scrapingLinke = async keyword => {
             console.log("pulso el botón buscar");
         // await page.waitForSelector('buscar oferta home');
         await page.click('button[data-searchbar-type="JOBS"]');
+    
         
-        //  // Espera a que sea visible el filtro "Sin experiencia"
-        // await page.waitForSelector('button[filter-button-type="public_jobs_f_E"]');
-       //Hacemos click en la opción "sin experiencia"
-        // // await page.click(".filter-button ");
+        // Espera a que sea visible el input filtro "Sin experiencia"
+        console.log("Esperando filtro")
+        await page.waitForSelector('li.filter:nth-child(5)>div>div>button');
+       //Hacemos click en el input"sin experiencia"
+       console.log("cliqueando filtro")
+        await page.click('li.filter:nth-child(5)>div>div>button');
+
+        // Espera a que sea visible el boton filtro "Sin experiencia"
+        console.log("Esperando SIN EXPERIENCIA")
+        await page.waitForSelector('div.filter-values-container__filter-values>div:nth-child(2)>input#f_E-1');
+        //Hacemos click en la opción "sin experiencia"
+        console.log("cliqueando SIN EXPERIENCIA")
+        await page.click('div.filter-values-container__filter-values>div:nth-child(2)>input#f_E-1');
+
+        // Espera a que sea visible el boton HECHO de "Sin experiencia"
+        await page.waitForSelector('li.filter:nth-child(5)>div>div>div>button');
+        //Hacemos click en el BOTON HECHO "sin experiencia"
+        await page.click('li.filter:nth-child(5)>div>div>div>button');
 
         //··············CONTENEDOR DE ADS GENERAL Y LINKS·················//
             console.log("espero al selector");
@@ -60,20 +76,21 @@ const scrapingLinke = async keyword => {
 
         const cards = [];
         for (let link of links) {
-        await page.goto(link);
-        await page.waitForSelector("h3");
+            await page.goto(link);
+            await page.waitForSelector("h3");
 
-        const uniqueCardOffer = await page.evaluate(() => {
-        const offer = {};
-        offer.title = document.querySelector(".base-search-card__title").innerText;
-        offer.companyName = document.querySelector(".base-search-card__subtitle").innerText;
-        //oferta.salary=
-        //offer.url = window.location.href;
-        return offer;
-        });
-        cards.push(uniqueCardOffer);
-       console.log("Esta es una de las ofertas", uniqueCardOffer);
+            const uniqueCardOffer = await page.evaluate(() => {
+            const offer = {};
+            offer.title = document.querySelector("h1.topcard__title").innerText;
+            offer.companyName = document.querySelector("a.topcard__org-name-link").innerText;
+            //oferta.salary=
+            //offer.url = window.location.href;
+            return offer;
+            });
+            cards.push(uniqueCardOffer);
+        console.log("Esta es una de las ofertas", uniqueCardOffer);
         }
+
         await browser.close();
         return cards;
     } catch (error) {
