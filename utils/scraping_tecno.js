@@ -57,11 +57,10 @@ const scrapingTe = async keyword => {
             const uniqueOffer = await page.evaluate(() => {
                 const offer = {};
                 offer.title = document.querySelector("h1").innerText;
-                offer.companyName =
-                    document.querySelector(".text-primary").innerText;
+                offer.companyName = document.querySelector(".text-primary").innerText;
                 // offer.description = document.querySelector("").innerText;
-                // offer.location = document.querySelector("").innerText;
-                // offer.salary = document.querySelector("h1").innerText;
+                // offer.location = document.querySelector('.fi.fi-pin-2').innerText;
+                // offer.salary = document.querySelector('.fi.fi-check').innerText;
                 offer.url = window.location.href;
 
                 return offer;
@@ -76,4 +75,4 @@ const scrapingTe = async keyword => {
     }
 };
 
-scrapingTe("desarrollador");
+scrapingTe("js");
