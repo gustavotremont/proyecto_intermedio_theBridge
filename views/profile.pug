@@ -4,13 +4,16 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Document
+        title Perfil
+        link(rel="stylesheet", href="/css/styles.css")
     body 
-    h1 vista de perfil de usuarios o Administrador con sus datos de perfil
-        each users in profile
-            p #{users.user_name}
-            p #{users.user_email}
-            p #{users.user_password}
-            p #{users.user_age}
-            p #{users.user_dni}
-            hr
+        include ./header
+        h1 Tú Perfil
+        section.user-profile
+            p #{name}
+            p #{email}
+            p #{password}
+            p #{age}
+            p #{dni}
+        script(src="/js/script.js")
+            

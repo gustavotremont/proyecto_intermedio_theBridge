@@ -5,12 +5,15 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Users
+        link(rel="stylesheet", href="/css/styles.css")
     body 
-    h1 aqui va lista que vera el administrador con los usuarios registrados
-        each users in result
-            p #{users.user_name}
-            p #{users.user_email}
-            p #{users.user_password}
-            p #{users.user_age}
-            p #{users.user_dni}
-            hr
+        include ./header
+        h1 aqui va lista que vera el administrador con los usuarios registrados
+            each user in result
+                p #{user.user_name}
+                p #{user.user_email}
+                p #{user.user_password}
+                p #{user.user_age}
+                p #{user.user_dni}
+                hr
+        script(src="/js/script.js")

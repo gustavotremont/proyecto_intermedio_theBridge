@@ -4,8 +4,10 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Ads
+        title Dashboard
+        link(rel="stylesheet", href="/css/styles.css")
     body 
+        include ./header
         div 
             a(href='/dashboard/create') Crear Oferta   
             a(href='/dashboard/update') Actualizar Oferta
@@ -42,4 +44,5 @@ html(lang="en")
             each offers in result
                 p #{offers.title}
                 p #{offers.companyName}
-                p #{offers.salary}      
+                p #{offers.salary}  
+        script(src="/js/script.js")    

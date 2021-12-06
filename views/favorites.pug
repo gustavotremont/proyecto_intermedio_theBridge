@@ -4,15 +4,20 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Document
+        title Favoritos
+        link(rel="stylesheet", href="/css/styles.css")
     body 
-    h1 Listado de favoritos de los usuarios
-        each users in favorites
-            p #{users.favorite_title}
-            p #{users.favorite_companyName}
-            p #{users.favorite_description}
-            p #{users.favorite_salary}
-            p #{users.favorite_location}
-            p #{users.favorite_url}
-            p #{users.favorite_userEmail}
-            hr
+        include ./header
+
+        h1 Lista de Favoritos
+        section.user-favorites 
+            each fav in favorites
+                article.favorite-info
+                    p #{fav.title}
+                    p #{fav.companyName}
+                    p #{fav.url}
+                    p #{fav.description}
+                    p #{fav.salary}
+                    p #{fav.location}
+
+        script(src="/js/script.js")

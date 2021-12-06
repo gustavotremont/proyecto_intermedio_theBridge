@@ -4,28 +4,32 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Document
+        title Sign Up
+        link(rel="stylesheet", href="/css/styles.css")
     body 
-        h2 Crea tu cuenta 
-        br
-        h3  Datos personales
+        include ./header
+        h1 Crea tu cuenta 
+        
         form(action="/api/user" method="POST")
-            p Nombre
-            input#inputFormSignup(type='text' name='nameSignup' placeholder='nombre' required='')
-            br
-            p Email
-            input#inputSignup2(type='email' name='emailSignup' placeholder='email' required='')
-            br
-            p Contraseña
-            input#inputSignup3(type='password' name='passwordSignup' placeholder='contraseña' required='')
-            br
-            p Edad
-            input#inputSignup4(type='text' name='ageSignup' placeholder='edad' required='')
-            br
-            p Teléfono 
-            input#inputSignup4(type='text' name='tlfSignup' placeholder='tlf' required='')
-            br
-            p DNI
-            input#inputSignup4(type='text' name='dniSignup' placeholder='dni' required='')
-            br
-            input#btnSearchSignup(type='submit')
+            h3  Datos de Usuario
+
+            label(for="nameSignup") Nombre y Apellido
+            input#nameSignup(type='text' name='nameSignup' placeholder='Nombre' required='')
+        
+            label(for="emailSignup") Email
+            input#emailSignup(type='email' name='emailSignup' placeholder='Email' required='')
+
+            label(for="passwordSignup") Contraseña
+            input#passwordSignup(type='password' name='passwordSignup' placeholder='Contraseña' required='')
+
+            label(for="ageSignup") Edad
+            input#ageSignup(type='number' name='ageSignup' placeholder='edad' required='')
+
+            label(for="tlfSignup") Teléfono (+34)
+            input#tlfSignup(type='text' name='tlfSignup' placeholder='tlf' maxlength='9' required='')
+
+            label(for="dniSignup") DNI
+            input#dniSignup(type='text' name='dniSignup' placeholder='dni' maxlength='9' required='')
+
+            input#btnSignup(type='submit' value='Crear Cuenta')
+        script(src="/js/script.js")
