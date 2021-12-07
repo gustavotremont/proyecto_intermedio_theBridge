@@ -9,6 +9,7 @@ html(lang="en")
     body 
         include ./header
         h1 Accede como candidato
+        include ./messages
  
         form#loginForm(action="/api/login" method="POST")
             label(for="loginEmail") Email

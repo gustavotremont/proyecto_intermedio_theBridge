@@ -59,14 +59,14 @@ const createUser = async (req, res) => {
                 const result = await User.createUser(req.body);
 
                 if (result === 1) {
-                    res.status(201).redirect('/login', {succes_msg: 'Te has registrado correctamente'});
+                    res.status(201).redirect('/login');
                 } else {
-                    res.status(400).redirect('/signup',{error_msg: 'Ocurrio un error inesperado, porfavor vuelva a intentarlo'})
+                    res.status(400).redirect('/signup')
                 }
             }
         }
     } catch (err) {
-        res.status(400).redirect('/signup',{error_msg: 'Ocurrio un error inesperado, porfavor vuelva a intentarlo'})
+        res.status(400).redirect('/signup')
     }    
 };
 
