@@ -10,12 +10,14 @@ header
                     when 2
                         a(href="/favorites") Favorites
                         a(href="/profile") Profile 
-                        a(href="/logout") Logout
+                        form#logout(action="/api/logout", method="post") 
+                            a(href="javascript:{ document.getElementById('logout').submit();}") Logout
                     when 1
                         a(href="/dashboard") Dashboard
                         a(href="/users") Users 
                         a(href="/profile") Profile
-                        a(href="/logout") Logout
+                        form#logout(action="/api/logout", method="post") 
+                            a(href="javascript:{ document.getElementById('logout').submit();}") Logout
                     default     
                         a(href="/signup") Sign Up
                         a(href="/login") Login
