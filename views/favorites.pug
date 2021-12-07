@@ -13,11 +13,14 @@ html(lang="en")
         section.user-favorites 
             each fav in favorites
                 article.favorite-info
-                    p #{fav.title}
-                    p #{fav.companyName}
-                    p #{fav.url}
-                    p #{fav.description}
-                    p #{fav.salary}
-                    p #{fav.location}
+                    p Puesto: #{fav.favorite_title}
+                    p Compañia: #{fav.favorite_companyname}
+                    p URL: #{fav.favorite_url}
+                    p Descripción: #{fav.favorite_description}
+                    p Salario: #{fav.favorite_salary}
+                    p localización: #{fav.favorite_location}
+                    form(action=`/api/favorite/?_method=DELETE&favorite=${fav.favorite_id}`, method="post")
+                        input(type="submit", value="Borrar de favotiros")
+                hr
 
         script(src="/js/script.js")
