@@ -10,10 +10,13 @@ const scrapOffer = async (url, browser) =>{
         await page.waitForSelector("h1");
             offer.title = await page.$eval('h1', e=>e.innerText)
             offer.companyName = await page.$eval('.text-primary', e=>e.innerText)
-            offer.description = await page.$eval('.fs--16', e=>e.innerText)
+            offer.description = await page.$eval('.fs--16', e=>e.innerText.slice(0, 200))
             offer.location = await page.$eval('ul.list-unstyled :first-child .float-end', e=>e.innerText)
-            offer.salary = await page.$eval('ul.list-unstyled :nth-child(6) .float-end', e=>e.innerText) || 'Salario no disponible'
-            // offer.url = await page.evaluate(Window.location.href)
+            offer.salary = await page.$eval('ul.list-unstyled :nth-child(6) .float-end', (e)=>{
+                const salario = e.innerText
+                return salario.includes('€') ? salario : 'Salario no disponible'
+            }) 
+            offer.url = url
 
         // //Rellenamos un objeto vacio con los atributos que queremos traernos de las ofertas
         // const uniqueOffer = await page.evaluate(() => {
@@ -65,21 +68,27 @@ const scrapingTe = async keyword => {
         
         const links = await page.evaluate(() => {
             console.log("entramos");
-            const elements = document.querySelectorAll("h5 a");
+            const elements = document.querySelectorAll("div.p-0 h5.h6-xs a");
     
             const dataJobs = [];
             for (let element of elements) {
-                dataJobs.push(element.href);
+                if(element.href !== 'https://www.tecnoempleo.com/demanda-trabajo-informatica.php?fav=1') {
+                    dataJobs.push(element.href);
+                } else {
+                    dataJobs.push('');
+                }
             }
             return dataJobs;
         });
 
+        //URLS filtradas 
+        const urls = links.filter(n => n);
 
-            console.log(links);
+            console.log(urls);
         // Recorremos los links de las ofertas
         const cardsOffer = [];
-        for (let link of links) {
-           const resultOffer = await scrapOffer(link, browser)
+        for (let url of urls) {
+           const resultOffer = await scrapOffer(url, browser)
            cardsOffer.push(resultOffer)
         }
         await browser.close();
