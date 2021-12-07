@@ -1,5 +1,6 @@
 /****************** Nodejs Dependencies ******************/
 const express = require('express');
+const methodOverride = require('method-override')
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const logger = require('morgan');
@@ -15,18 +16,12 @@ require('./utils/dbMongo');
 const errors = require('./middlewares/errors');
 // const passportJWTStrategy = require('./auth/passport')
 
-/****************** Import routes ******************/
-const indexRoutes = require('./routes/index');
-const usersRoutes = require('./routes/users');
-const adminRoutes = require('./routes/admin');
-const ApiRoutes = require('./routes/api');
-
-
 /****************** Enable Express ******************/
 const app = express();
 const port = 3000;
 
 /****************** Express Settings ******************/
+app.use(methodOverride('_method')) //Nos permite usar metodos PUT y DELETE con express
 app.use(express.json()); //Para habilitar envio de JSON al servidor
 app.use(express.static('public')); //Habilitar los archivos para que sean estaticos
 app.use(express.urlencoded( { extended: false } )); //Habilita la lectura del body por metodo post
