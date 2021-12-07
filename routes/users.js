@@ -11,12 +11,4 @@ passportJWTStrategy(passport); //habilita el cliente
 routes.get("/favorites/", favorite.getFavorite); //Mostart Favoritos del Usuario Logeado
 routes.get("/profile/:email?/:action?", passport.authenticate('jwt', {session: false}), user.getProfile ); //Mostart Perfil del Usuario Logeado
 
-// routes.get("/profile/:email", passport.authenticate('jwt', {session: false}), (req, res) => {
-//     if (auth.isValidToken(req.cookies.access_token)) {
-//         user.getUser
-//     } else {
-//         res.status(500).send('no tienes permiso para ingresar a esta pagina')
-//     } 
-// }); //Mostart Perfil del Usuario Logeado
-
 module.exports = routes;
