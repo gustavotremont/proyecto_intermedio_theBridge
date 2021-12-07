@@ -1,0 +1,27 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Perfil
+        link(rel="stylesheet", href="/css/styles.css")
+    body 
+        include ./header
+        h1 Modifica los campos 
+        form(action=`/api/user/?_method=PUT&currentUserEmail=${user.user_email}`, method="POST") 
+            
+            label(for="userName") Nombre
+            input#userName(type="text" name='userName' value=user.user_name required='')
+
+            label(for="userAge") Edad
+            input#userAge(type="number" name='userAge' value=user.user_age required='')
+
+            label(for="userTlf") Telefono
+            input#userTlf(type="text" name='userTlf' value=user.user_tlf maxlength='9' required='')
+
+            label(for="userDNI") DNI
+            input#userDNI(type="text" name='userDNI' value=user.user_dni maxlength='9' required='')
+
+            input(type="submit", value="Modificar Usuario")
+        script(src="/js/script.js")

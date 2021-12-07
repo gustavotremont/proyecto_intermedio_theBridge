@@ -8,12 +8,20 @@ html(lang="en")
         link(rel="stylesheet", href="/css/styles.css")
     body 
         include ./header
-        h1 aqui va lista que vera el administrador con los usuarios registrados
-            each user in result
-                p #{user.user_name}
-                p #{user.user_email}
-                p #{user.user_password}
-                p #{user.user_age}
-                p #{user.user_dni}
+        a(href="/user/create") Crear Usuario
+        h1 Usuarios Registrados
+        section 
+            each user in users 
+                article 
+                    p #{user.user_name}
+                    p #{user.user_email}
+                    p #{user.user_password}
+                    p #{user.user_tlf}
+                    p #{user.user_age}
+                    p #{user.user_dni}
+                    a(href=`/user/edit/?currentUserEmail=${user.user_email}`) Modificar Usuario 
+                    form(action=`/api/user?_method=DELETE&currentUserEmail=${user.user_email}`, method="post")
+                        input(type="submit", value="Borrar a este usuario")
                 hr
+                
         script(src="/js/script.js")
