@@ -7,42 +7,22 @@ html(lang="en")
         title Dashboard
         link(rel="stylesheet", href="/css/styles.css")
     body 
-        include ./header
-        div 
-            a(href='/dashboard/create') Crear Oferta   
-            a(href='/dashboard/update') Actualizar Oferta
-            a(href='/dashboard/delete') Borrar Oferta
+        include ./header         
+        a(href='/dashboard/create') Crear Oferta   
 
-        if action === 'create'
-            h1 Crear Oferta
-            form(action="/dashboard" method="POST")
-                    input#inputFormHome(type='text' name='title' placeholder='Nombre Oferta' required='')
-                    br
-                    input#inputFormHome(type='text' name='companyName' placeholder='Nombre Empresa' required='')
-                    br
-                    input#inputFormHome(type='text' name='description' placeholder='Descripción' required='')
-                    br
-                    input#inputFormHome(type='text' name='salary' placeholder='Salario' required='')
-                    br
-                    input#inputFormHome(type='text' name='location' placeholder='Localización' required='')
-                    br
-                    input#inputFormHome(type='text' name='URL' placeholder='URL' required='')
-                    br
-        else if action === 'update'
-            h1 Editar oferta
-                form(action="/update" method="PUT")
-                    input#inputFormHome2(type='text' name='offer2' placeholder='Busque por nombre..' required='')
-                    br
-        else if action === 'delete'
-            h1 Borrar oferta 
-            form(action="/delete" method="DELETE")
-                input#inputFormHome2(type='text' name='offer3' placeholder='Busque por nombre..' required='')
-                br
-                input#btnSearchHome(type='submit')
-        else
-            h1 Esto son todas las ofertas de trabajo
-            each offers in result
-                p #{offers.title}
-                p #{offers.companyName}
-                p #{offers.salary}  
+        h1 Esto son todas las ofertas de trabajo
+            section 
+                each offer in result
+                    article 
+                        p Puesto: #{offer.title}
+                        p Compañia: #{offer.companyName}
+                        a(href=offer.URL) Link a la oferta 
+                        p Salario: #{offer.salary}
+                        p Descripción: #{offer.description}                    
+                        p localización: #{offer.location}
+                        a(href=`/dashboard/edit/?currentOfferId=${offer._id}`) Modificar Oferta 
+                        form(action=`/api/ads?_method=DELETE&currentOfferId=${offer._id}`, method="post")
+                            input(type="submit", value="Borrar esta oferta")
+                    hr
+                     
         script(src="/js/script.js")    
