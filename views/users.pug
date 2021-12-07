@@ -5,12 +5,23 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Users
+        link(rel="stylesheet", href="/css/styles.css")
     body 
-    h1 aqui va lista que vera el administrador con los usuarios registrados
-        each users in result
-            p #{users.user_name}
-            p #{users.user_email}
-            p #{users.user_password}
-            p #{users.user_age}
-            p #{users.user_dni}
-            hr
+        include ./header
+        a(href="/user/create") Crear Usuario
+        h1 Usuarios Registrados
+        section 
+            each user in users 
+                article 
+                    p #{user.user_name}
+                    p #{user.user_email}
+                    p #{user.user_password}
+                    p #{user.user_tlf}
+                    p #{user.user_age}
+                    p #{user.user_dni}
+                    a(href=`/user/edit/?currentUserEmail=${user.user_email}`) Modificar Usuario 
+                    form(action=`/api/user?_method=DELETE&currentUserEmail=${user.user_email}`, method="post")
+                        input(type="submit", value="Borrar a este usuario")
+                hr
+                
+        script(src="/js/script.js")

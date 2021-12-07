@@ -3,7 +3,7 @@ const routes = express.Router();
 
 const controllerApi = require('../controllers/controllersApi');
 const user = require("../controllers/user");
-const offer = require('../controllers/offer')
+const offer = require('../controllers/offer');
 const favorite = require("../controllers/favorite");
 
 
