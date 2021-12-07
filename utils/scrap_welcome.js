@@ -1,97 +1,106 @@
-const puppeteer = require('puppeteer')
+// LLAMAMOS A PUPPETEER
+const puppeteer = require("puppeteer");
 
-const scraperWelcome = async (url) => {
+// const scrapOffer = async (url, browser) =>{
+//     try{
+//         const offer = {};
+//         const page = await browser.newPage();
+//         await page.goto(url);
 
+//         await page.waitForSelector("h1");
+//             offer.title = await page.$eval('h1', e=>e.innerText)
+//             offer.companyName = await page.$eval('.text-primary', e=>e.innerText)
+//             offer.description = await page.$eval('.fs--16', e=>e.innerText.slice(0, 200))
+//             offer.location = await page.$eval('ul.list-unstyled :first-child .float-end', e=>e.innerText)
+//             offer.salary = await page.$eval('ul.list-unstyled :nth-child(6) .float-end', (e)=>{
+//                 const salario = e.innerText
+//                 return salario.includes('€') ? salario : 'Salario no disponible'
+//             }) 
+//             offer.url = url
+
+//         // //Rellenamos un objeto vacio con los atributos que queremos traernos de las ofertas
+//         // const uniqueOffer = await page.evaluate(() => {
+//             console.log("Esto es una unica tarjeta",offer)
+//         return offer;
+//         // });
+//         // cardsOffer.push(uniqueOffer);
+//         // console.log("Esto es una unica tarjeta", uniqueOffer);
+
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }
+/******************************funcion madre ************************************** */
+const scrap_welcome = async keyword => {
     try {
-        console.log("Opening the browser......");
+        // Abre el navegador
         const browser = await puppeteer.launch({
-            "headless": true,
-            "args": ["--fast-start", "--disable-extensions", "--no-sandbox"],
-            "ignoreHTTPSErrors": true
-
+            headless: false,
         });
+        // Abre nueva página  con TecnoEmpleo home
         const page = await browser.newPage();
-        page.setViewport({
-            width: 1280,
-            height: 7000
+        await page.setViewport({ width: 1366, height: 768 });
+        await page.goto(
+            "https://www.welcometothejungle.com/es/jobs"
+        );
+            console.log("Entro a la web");
+        // Espera a que el input sea visible
+        await page.waitForSelector(".ais-SearchBox-input");
+        //Escribe texto en el input seleccionado
+        await page.type(".ais-SearchBox-input", keyword);
+        //     //click en el botón "Buscar"
+            console.log("pulso el botón");
+
+        await page.click(".sc-jKTccl");
+        // // Espera a que sea visible el filtro "Sin experiencia"
+        // await page.waitForSelector(
+        //     ".blo20m-2"
+        // );
+        // // Hacemos click en la opción "sin experiencia"
+        // await page.click(".blo20m-2");
+
+        // ··············CONTENEDOR DE ADS GENERAL Y LINKS·················//
+            console.log("espero al contenedor de ofertas");
+        // Espera a que sea visible el contenedor con las tarjetas de resultados 
+        await page.waitForSelector(".sc-1dr65rf-0"); //li.ais-Hits-list-item
+
+            console.log("A ver si llega");
+        
+        const links = await page.evaluate(() => {
+            console.log("entramos")
+
+            const elements = document.querySelectorAll("h3");
+            console.log(elements)
+    
+            const dataJobs = [];
+            for (let element of elements) {
+                if(element.href !== 'https://www.welcometothejungle.com/es/jobs?query=desarrolador&page=1') {
+                    dataJobs.push(element.href);
+                } else {
+                    dataJobs.push('');
+                }
+            }
+            return dataJobs;
         });
 
+        //URLS filtradas 
+        const urls = links.filter(n => n);
 
-        console.log(`Navigating to ${url}...`);
-        await page.goto(url);
-        await page.waitForSelector('ol.sc-1dr65rf-0.rvKcA.ais-Hits-list');
-
-        const jobs = await page.$$eval('ol.sc-1dr65rf-0.rvKcA.ais-Hits-list', () => {
-            const jobData = [];
-            let jobTitle = "";
-            let jobCompany = "";
-            let jobLocation = "";
-            let jobDate = "";
-            let jobImg = "";
-            let jobUrl = "";
-            const issues = document.querySelectorAll('li.ais-Hits-list-item');
-            issues.forEach(issue => {
-                //!TITULO OFERTA
-                if (issue.querySelector("h3.sc-1kkiv1h-9.sc-7dlxn3-4.ivyJep.iXGQr")) {
-                    jobTitle = issue.querySelector("h3.sc-1kkiv1h-9.sc-7dlxn3-4.ivyJep.iXGQr").innerText
-                } else {
-                    jobTitle = "Sin datos"
-                }
-                //! COMPAÑÍA
-                if (issue.querySelector("span.ais-Highlight-nonHighlighted")) {
-                    jobCompany = issue.querySelector("span.ais-Highlight-nonHighlighted").innerText
-                } else {
-                    jobCompany = "Sin datos"
-                }
-                //! LOCALIZACIÓN (O TELETRABAJO)
-                if (issue.querySelector("span.sc-1qc42fc-2.fHAhLi")) {
-                    jobLocation = issue.querySelector("span.sc-1qc42fc-2.fHAhLi").innerText
-                } else if (issue.querySelector("ul.sc-1qc42fc-4.dLcIHx > li:nth-child(2) > span.sc-1qc42fc-2.bzTNsD > span")) {
-                    jobLocation = issue.querySelector("ul.sc-1qc42fc-4.dLcIHx > li:nth-child(2) > span.sc-1qc42fc-2.bzTNsD > span").innerText
-                } else {
-                    jobLocation = "Sin datos"
-                }
-                //! DATE
-                if (issue.querySelector("span.sc-1qc42fc-2.bzTNsD > time > span")) {
-                    jobDate = issue.querySelector("span.sc-1qc42fc-2.bzTNsD > time > span").innerText
-                } else {
-                    jobDate = "Sin datos"
-                }
-                //! IMG
-                if (issue.querySelector("img.sc-1kkiv1h-8.iwJoCg")) {
-                    jobImg = issue.querySelector("img.sc-1kkiv1h-8.iwJoCg").src
-                } else {
-                    jobImg = "https://cdn.iconscout.com/icon/premium/png-128-thumb/no-image-2840213-2359555.png"
-                }
-                //! JOB URL
-                if (issue.querySelector("header.sc-7dlxn3-2.eGEqwR > a")) {
-                    jobUrl = issue.querySelector("header.sc-7dlxn3-2.eGEqwR > a").href
-                }
-                // if (issue.querySelector("div.sc-1kkiv1h-0.sc-7dlxn3-0.hKrqEn.gscFBq > a")) {
-                //     jobUrl = issue.querySelector("div.sc-1kkiv1h-0.sc-7dlxn3-0.hKrqEn.gscFBq > a").href
-                // } 
-                else {
-                    jobUrl = "Sin datos"
-                }
-                jobData.push({
-                    "jobTitle": jobTitle,
-                    "jobCompany": jobCompany,
-                    "jobLocation": jobLocation,
-                    "jobDate": jobDate,
-                    "jobImg": jobImg,
-                    "jobUrl": jobUrl
-                })
-            })
-            return jobData
-        });
+            console.log(urls);
+        // Recorremos los links de las ofertas
+        const cardsOffer = [];
+        for (let url of urls) {
+           const resultOffer = await scrapOffer(url, browser)
+           cardsOffer.push(resultOffer)
+        }
         await browser.close();
-        return jobs
+        return cardsOffer;
     } catch (error) {
-        console.log("Error: ", error);
+        console.log(error);
     }
+};
 
-}
-scraperWelcome('desarrollador')
-// module.exports = {
-//     scraperWelcome
-// };
+scrap_welcome("js");
+
+scrap_welcome
+exports.scrap_welcome = scrap_welcome;
