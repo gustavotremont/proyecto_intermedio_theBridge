@@ -4,10 +4,69 @@ const getEmailByToken = require('../utils/getEmailByToken')
 
 const createUser = async (req, res) => {
     try {
-        const result = await User.createUser(req.body);
-        res.status(201).redirect('/login'); 
+
+        const {userName, userEmail, userPassword, userPassword2, userAge, userTlf, userDni} = req.body;
+
+        let errors = [];
+
+        if(!userName || !userEmail || !userPassword || !userPassword2 || !userAge || !userTlf || !userDni) {
+            errors.push({msg : "Completa todos los campos"})
+        }
+
+        //check if match
+        if(userPassword !== userPassword2) {
+            errors.push({msg : "Las contraseñas no coinciden"});
+        }
+
+        if(userAge < 18 ) {
+            errors.push({msg : 'Tienes que ser mayor de edad para registrarte'})
+        }
+
+        if(userTlf.length != 9 ) {
+            errors.push({msg : 'El numero de tlf tiene que tener 9 digitos'})
+        }
+
+        if(userDni.length != 9 ) {
+            errors.push({msg : 'El DNI tiene que tener 9 digitos'})
+        }
+
+        if(errors.length > 0 ) {
+            res.render('signup', {
+                errors : errors,
+                userName,
+                userEmail,
+                userPassword,
+                userPassword2,
+                userAge,
+                userTlf,
+                userDni
+            })
+        }else {
+            const emailAlredyExist = await User.getUser(userEmail);
+            if (emailAlredyExist) {
+                errors.push({msg : 'ya existe una cuenta asociada a este email, prueba con otro'})
+                res.render('signup', {
+                    errors : errors,
+                    userName,
+                    userEmail,
+                    userPassword,
+                    userPassword2,
+                    userAge,
+                    userTlf,
+                    userDni
+                })
+            } else {
+                const result = await User.createUser(req.body);
+
+                if (result === 1) {
+                    res.status(201).redirect('/login', {succes_msg: 'Te has registrado correctamente'});
+                } else {
+                    res.status(400).redirect('/signup',{error_msg: 'Ocurrio un error inesperado, porfavor vuelva a intentarlo'})
+                }
+            }
+        }
     } catch (err) {
-        res.status(400).redirect('/signup',{"error":err})
+        res.status(400).redirect('/signup',{error_msg: 'Ocurrio un error inesperado, porfavor vuelva a intentarlo'})
     }    
 };
 
