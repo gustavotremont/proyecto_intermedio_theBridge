@@ -29,13 +29,13 @@ const login = async (req, res) => {
                 .status(200)
                 .redirect('/')
             }else {
-                res.status(400).json({"error":'las contraseñas no coinciden'})
+                res.status(400).redirect('/login', {"error":'las contraseñas no coinciden'})
             }
         } else {
-            res.status(400).json({"error":'Usuario no Registrado'})
+            res.status(400).redirect('/login', {"error":'Usuario no Registrado'})
         }
     } catch (error) {
-        res.status(400).json({"error":error})
+        res.status(400).redirect('/login', {"error":error})
     }
 }
 
