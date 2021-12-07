@@ -11,25 +11,25 @@ html(lang="en")
         h1 Crea tu cuenta 
         
         form(action="/api/user" method="POST")
-            h3  Datos de Usuario
+            h3 Datos de Usuario
 
-            label(for="nameSignup") Nombre y Apellido
-            input#nameSignup(type='text' name='nameSignup' placeholder='Nombre' required='')
+            label(for="userName") Nombre y Apellido
+            input#userName(type='text' name='userName' placeholder='Nombre' required='')
         
-            label(for="emailSignup") Email
-            input#emailSignup(type='email' name='emailSignup' placeholder='Email' required='')
+            label(for="userEmail") Email
+            input#userEmail(type='email' name='userEmail' placeholder='Email' required='')
 
-            label(for="passwordSignup") Contraseña
-            input#passwordSignup(type='password' name='passwordSignup' placeholder='Contraseña' required='')
+            label(for="userPassword") Contraseña
+            input#userPassword(type='password' name='userPassword' placeholder='Contraseña' required='')
 
-            label(for="ageSignup") Edad
-            input#ageSignup(type='number' name='ageSignup' placeholder='edad' required='')
+            label(for="userAge") Edad
+            input#userAge(type='number' name='userAge' placeholder='edad' required='')
 
-            label(for="tlfSignup") Teléfono (+34)
-            input#tlfSignup(type='text' name='tlfSignup' placeholder='tlf' maxlength='9' required='')
+            label(for="userTlf") Teléfono (+34)
+            input#userTlf(type='text' name='userTlf' placeholder='tlf' maxlength='9' required='')
 
-            label(for="dniSignup") DNI
-            input#dniSignup(type='text' name='dniSignup' placeholder='dni' maxlength='9' required='')
+            label(for="userDni") DNI
+            input#userDni(type='text' name='userDni' placeholder='dni' maxlength='9' required='')
 
             input#btnSignup(type='submit' value='Crear Cuenta')
         script(src="/js/script.js")
