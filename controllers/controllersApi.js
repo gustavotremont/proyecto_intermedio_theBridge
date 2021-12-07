@@ -45,13 +45,9 @@ const logout = (req, res) => {
         res
         .clearCookie('access_token')
         .status(200)
-        .json({
-            message: 'Sesion Finalizada!'
-        })
+        .redirect('/')
     } else {
-        res.status(401).json({
-            error: 'Invalid jwt'
-        })
+        res.status(401).redirect('/')
     }
 }
 
