@@ -30,6 +30,10 @@ app.use(cors()); //Inhabilita el error de CORS
 app.use(logger('dev')); // habilitar Morgan con preset dev
 app.use(passport.initialize());
 
+/****************** Passport Strategies ******************/
+const passportStrategies = require('./auth/passport')
+passportStrategies.passportJWTStrategy(passport); //habilita el cliente
+
 // passportJWTStrategy(passport); //habilita el cliente
 
 /****************** Import routes ******************/
