@@ -72,8 +72,14 @@ const createUser = async (req, res) => {
 
 const getUser = async (req, res) => {
     try {
+        let role = '';
+        if(req.cookies.access_token){
+            const token = jwt.verify(req.cookies.access_token, process.env.JWT_SECRET);
+            role = token.role;
+        }
+                
         if (req.params.action === 'create') {
-            res.status(200).render('userCreate');
+            res.status(200).render('userCreate',{data, role: role});
         } 
 
         else if(req.params.action === 'edit'){
@@ -99,6 +105,12 @@ const getUser = async (req, res) => {
 
 const getProfile = async (req, res) => {
     try {
+        let role = '';
+        if(req.cookies.access_token){
+            const token = jwt.verify(req.cookies.access_token, process.env.JWT_SECRET);
+            role = token.role;
+        }
+
         if (req.params.email) {
                 const result = await User.getUser(req.params.email);
                 const data = {
@@ -109,7 +121,7 @@ const getProfile = async (req, res) => {
                     dni: result.user_dni
                 }
                 if (req.params.action==='edit') {
-                    res.status(200).render('profileEdit', data);
+                    res.status(200).render('profileEdit', {data, role: role});
                 }else {
                     res.status(200).render('profile', data);
                 }
@@ -123,7 +135,8 @@ const getProfile = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-    try {     
+    try {   
+
         if(req.query.currentUserEmail){
             await User.deleteUser(req.query.currentUserEmail);
             res.status(200).redirect('/user')
@@ -136,7 +149,8 @@ const deleteUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-    try {    
+    try {        
+          
         if(req.query.currentUserEmail){
             await User.updateUser(req.body, req.query.currentUserEmail);
             res.status(200).redirect('/');

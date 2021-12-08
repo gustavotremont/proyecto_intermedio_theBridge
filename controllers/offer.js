@@ -12,9 +12,14 @@ const createOffer = async (req,res) => {
 
 // res.redirect('/dashboard/?currectOfferId=asdasdasd')
 const getOffers = async (req, res) => {
-    try{    
+    try{   
+        let role = '';
+        if(req.cookies.access_token){
+            const token = jwt.verify(req.cookies.access_token, process.env.JWT_SECRET);
+            role = token.role;
+        } 
         if (req.params.action === 'create') {
-            res.status(200).render('dashboardCreate');
+            res.status(200).render('dashboardCreate',{data, role: role});
         } 
         
         else if(req.params.action === 'edit'){
