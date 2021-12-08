@@ -15,7 +15,6 @@ require('./utils/dbMongo');
 const errors = require('./middlewares/errors');
 // const passportJWTStrategy = require('./auth/passport')
 
-
 /****************** Enable Express ******************/
 const app = express();
 const port = 3000;
