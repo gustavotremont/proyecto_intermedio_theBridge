@@ -19,7 +19,7 @@ routes.get('/signup', (req, res) => {
         const token = jwt.verify(req.cookies.access_token, process.env.JWT_SECRET);
         role = token.role;
     }
-    res.render('signup', {role: rol});
+    res.render('signup', {role: role});
 })
 
 // /* GET login. */

@@ -6,7 +6,6 @@ const createUser = async (req, res) => {
     try {
 
         const {userName, userEmail, userPassword, userPassword2, userAge, userTlf, userDni} = req.body;
-
         let errors = [];
 
         if(!userName || !userEmail || !userPassword || !userPassword2 || !userAge || !userTlf || !userDni) {
@@ -16,6 +15,9 @@ const createUser = async (req, res) => {
         //check if match
         if(userPassword !== userPassword2) {
             errors.push({msg : "Las contraseñas no coinciden"});
+        }
+        if(userPassword.length >= 6) {
+            errors.push({msg : "La contraseña tiene que tener al menos 6 dígitos"});
         }
 
         if(userAge < 18 ) {
@@ -149,8 +151,7 @@ const deleteUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-    try {        
-          
+    try {             
         if(req.query.currentUserEmail){
             await User.updateUser(req.body, req.query.currentUserEmail);
             res.status(200).redirect('/');
