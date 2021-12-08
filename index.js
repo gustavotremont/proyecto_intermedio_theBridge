@@ -11,7 +11,6 @@ const passport = require('passport')
 require('dotenv').config(); // carga fichero variables de entorno tiene que estar primero.
 require('./utils/dbMongo');
 
-
 /****************** Project Dependencies ******************/
 const errors = require('./middlewares/errors');
 // const passportJWTStrategy = require('./auth/passport')
