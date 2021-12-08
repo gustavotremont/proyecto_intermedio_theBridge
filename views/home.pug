@@ -9,7 +9,7 @@ html(lang="en")
    body 
          include ./header
          h1 Buscar Oferta
-         form.searchForm(action="/api/search" method="POST")
+         form.searchForm(action="/api/search" method="GET")
             label(for="keywordSearch") Busco ofertas de...
             input#keywordSearch(type='text' name='keywordSearch' placeholder='Puesto, empresa o palabra clave' required='')
 
@@ -17,4 +17,16 @@ html(lang="en")
             input#locationSearch(type='text' name='locationSearch' placeholder='Toda España')
   
             input.btnSearch(type='submit' value="Buscar")
+
+         if dataList
+            section 
+               each offer in dataList
+                  article 
+                     p #{offer.title}
+                     p #{offer.companyName}
+                     p #{offer.description}
+                     p #{offer.location}
+                     p #{offer.salary}
+                     p #{offer.url || offer.URL}
+                  hr   
          script(src="/js/dropdown_menu.js") 
