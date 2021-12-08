@@ -1,0 +1,42 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Create User
+        link(rel="stylesheet", href="/css/styles.css")
+    body 
+        include ./header
+        a(href="/user") Volver
+
+        h1 Crear usuario 
+        
+        form(action="/api/user" method="POST")
+            h3 Datos de Usuario
+
+            label(for="userName") Nombre y Apellido
+            input#userName(type='text' name='userName' placeholder='Nombre' required='')
+        
+            label(for="userEmail") Email
+            input#userEmail(type='email' name='userEmail' placeholder='Email' required='')
+
+            label(for="userPassword") Contraseña
+            input#userPassword(type='password' name='userPassword' placeholder='Contraseña' required='')
+
+            label(for="userAge") Edad
+            input#userAge(type='number' name='userAge' placeholder='edad' required='')
+
+            label(for="userTlf") Teléfono (+34)
+            input#userTlf(type='text' name='userTlf' placeholder='tlf' maxlength='9' required='')
+
+            label(for="userDni") DNI
+            input#userDni(type='text' name='userDni' placeholder='dni' maxlength='9' required='')
+
+            label(for="userType") Tipo de usuario 
+            select#userType(name="userType")
+                option(value=1) Administrador 
+                option(value=2) Usuario Comun 
+
+            input#btnSignup(type='submit' value='Crear Usuario')
+        script(src="/js/script.js")

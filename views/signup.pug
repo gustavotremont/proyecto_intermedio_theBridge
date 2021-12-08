@@ -4,27 +4,37 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Document
+        title Sign Up
+        link(rel="stylesheet", href="/css/styles.css")
     body 
-        h2 Crea tu cuenta 
-        br
-        h2  Datos personales
-        h3  Nombre 
-         form(action="/signup" method="POST")
-         input#inputFormSignup(type='text' name='search1' placeholder='nombre' required='')
-         br
-         h3 Primer Apellido
-         input#inputSignup2(type='text' name='search2' placeholder='apellido' required='')
-         br
-         br
-         br
-         h2  Datos de tu cuenta
-         h3 Email
-         input#inputSignup3(type='email' name='search2' placeholder='email' required='')
-         br
-         h3 Contraseña
-         input#inputSignup4(type='text' name='search2' placeholder='contraseña' required='')
-         br
-         br
-         input#btnSearchSignup(type='submit')
-         br
+        include ./header
+        h1 Crea tu cuenta 
+
+        include ./messages
+        
+        form(action="/api/user" method="POST")
+            h3 Datos de Usuario
+
+            label(for="userName") Nombre y Apellido
+            input#userName(type='text' name='userName' placeholder='Nombre' value=typeof userName != 'undefined' ? userName : '' required='')
+        
+            label(for="userEmail") Email
+            input#userEmail(type='email' name='userEmail' placeholder='Email' value=typeof userEmail != 'undefined' ? userEmail : '' required='')
+
+            label(for="userPassword") Contraseña
+            input#userPassword(type='password' name='userPassword' placeholder='Contraseña' value=typeof userPassword != 'undefined' ? userPassword : '' required='')
+
+            label(for="userPassword") Repite la Contraseña
+            input#userPassword(type='password' name='userPassword2' placeholder='Contraseña' value=typeof userPassword2 != 'undefined' ? userPassword2 : ''  required='')
+
+            label(for="userAge") Edad
+            input#userAge(type='number' name='userAge' placeholder='edad' value=typeof userAge != 'undefined' ? userAge : '' required='')
+
+            label(for="userTlf") Teléfono (+34)
+            input#userTlf(type='text' name='userTlf' placeholder='tlf' value=typeof userTlf != 'undefined' ? userTlf : '' maxlength='9' required='')
+
+            label(for="userDni") DNI
+            input#userDni(type='text' name='userDni' placeholder='dni' value=typeof userDni != 'undefined' ? userDni : '' maxlength='9' required='')
+
+            input#btnSignup(type='submit' value='Crear Cuenta')
+        script(src="/js/script.js")
