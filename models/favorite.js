@@ -57,7 +57,7 @@ const getAllFavoritesByUser = async (userEmail) => {
         user = await pool.connect(); // Espera a abrir conexion
         const data = await user.query(
             `
-            SELECT f.favorite_title, f.favorite_companyName, f.favorite_description, f.favorite_salary, f.favorite_location, f.favorite_url
+            SELECT f.favorite_id, f.favorite_title, f.favorite_companyName, f.favorite_description, f.favorite_salary, f.favorite_location, f.favorite_url
             FROM users AS u
             INNER JOIN favorites AS f
             ON u.user_id = f.user_id
@@ -99,13 +99,13 @@ const deleteFavorite = async favoriteId => {
 // getAllFavoritesByUser("isaguapo@gmail.com").then(data => console.log(data)); //FUNCIONA
 
 // const newFavorite = {
-//     title: 'Tester junior',
-//     companyName: 'Telefonica',
-//     description: 'Tester junior sin experiencia previa, se valaran en jest',
+//     title: 'Desarollador/a Python',
+//     companyName: 'NTT DATA ofertas de empleo profesionales',
+//     description: 'NTT Data somos todas las personas que la formamos. Un equipo de más de 139.000 profesionales, tan diverso como diversos son los 50 países en los que estamos presentes y los diferentes sectores en los que desarrollamos nuestra actividad.',
 //     salary: 20000,
-//     location: 'Calle Madrid, 06, Madrid',
-//     url: 'https://www.infojobs.net/zamudio/ingeniero-gestion-energia/of-i30dd55754a43229b590d5d62518118?applicationOrigin=search-new%7Celement%7E42960137838%7Cversion%7ECONTROL&searchId=42960137838&page=1&sortBy=PUBLICATION_DATE',
-//     userEmail: 'michelle@gmail.com'
+//     location: 'León, León (España)',
+//     url: 'https://www.infojobs.net/leon/desarollador-python/of-ic419e4957243bd89d5091b76249001?applicationOrigin=search-new%7Celement%7E43044089216%7Cversion%7ECONTROL&searchId=43044089216&page=1&sortBy=RELEVANCE',
+//     userEmail: 'gollo@mail.com'
 // }
 // createFavorite(newFavorite)
 // .then(data=>console.log(data)) //FUNCIONA

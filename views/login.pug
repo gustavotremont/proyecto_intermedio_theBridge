@@ -4,18 +4,20 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Document
+        title Log In
+        link(rel="stylesheet", href="/css/styles.css")
     body 
-     h2 Accede como candidato
-        br
-       
-        h3  Email  
-         form(action="/login" method="POST")
-         input#inputFormlogin(type='email' name='search1' placeholder='email' required='')
-         br
-         h3 Contraseña
-         input#inputLogin2(type='text' name='search2' placeholder='contraseña' required='')
-         br
-         br
-         input#btnSearchLogin(type='submit')
+        include ./header
+        h1 Accede como candidato
+        include ./messages
+ 
+        form#loginForm(action="/api/login" method="POST")
+            label(for="loginEmail") Email
+            input#loginEmail(type='email' name='loginEmail' placeholder='email' required)
+
+            label(for="loginPassword") Contraseña
+            input#loginPassword(type='password' name='loginPassword' placeholder='contraseña' required)
+
+            input.btnLogin(type='submit' value='Acceder')
+        script(src="/js/script.js")
          

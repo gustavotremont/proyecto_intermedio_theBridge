@@ -1,0 +1,38 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Dashboard
+        link(rel="stylesheet", href="/css/styles.css")
+    body 
+        include ./header         
+        a(href='/dashboard') Volver  
+
+        h1 Crear Oferta
+        section 
+                form(action="/api/ads" method="POST")
+                        label(for="title") Puesto
+                        input#title(type='text' name='title' placeholder='Nombre Oferta' required='')
+                        
+                        label(for="companyName") Compañia
+                        input#companyName(type='text' name='companyName' placeholder='Nombre Empresa' required='')
+                        
+                        label(for="description") Descripción
+                        input#description(type='text' name='description' placeholder='Descripción' required='')
+                        
+                        label(for="salary") Salario
+                        input#salary(type='number' name='salary' placeholder='Salario' required='')
+                        
+                        label(for="location") Localización
+                        input#location(type='text' name='location' placeholder='Localización' required='')
+                        
+                        label(for="URL") URL
+                        input#URL(type='text' name='URL' placeholder='URL' required='')
+
+                        input(type="submit", value="Crear Oferta")
+                     
+        script(src="/js/script.js") 
+
+            

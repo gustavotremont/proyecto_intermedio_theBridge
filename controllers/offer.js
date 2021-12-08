@@ -4,48 +4,75 @@ const createOffer = async (req,res) => {
     try{
         const offer = new Offer(req.body); // Genero el nuevo documento
         const result = await offer.save(); // Lo guarda en BBDD
-        res.status(201).json(result);
+        res.status(201).redirect('/dashboard');
     } catch(err){
-        res.status(400).json({"error":err})
+        res.status(400).redirect('/')
     }  
 }
 
+// res.redirect('/dashboard/?currectOfferId=asdasdasd')
 const getOffers = async (req, res) => {
-    try{
-        console.log(req.query.currectOfferId);
-        if(req.params.id){
-            const result = await Offer.findById(req.query.currectOfferId);
-            res.status(200).json(result) // devuelve una oferta por id
-        } else {
-            const result = await Offer.find({});
-            res.status(200).json({offers: result}) // Devuelve todos las ofertas
+    try{    
+        if (req.params.action === 'create') {
+            res.status(200).render('dashboardCreate');
+        } 
+        
+        else if(req.params.action === 'edit'){
+            if(req.query.currentOfferId){
+                const result = await Offer.findById(req.query.currentOfferId);
+                res.status(200).render('dashboardEdit',{offer: result}) // DEBEMOS DEVOLVER OFERTA POR ID !!!!
+            } else {
+                res.status(400).redirect('/')
+            }
+        }
+        
+        else {
+            const result = await Offer.find({}, '-__v');
+            res.status(200).render('dashboard',{result: result}) // Devuelve todos las ofertas
         }
     } 
     catch(err){
-        res.status(400).json({"error":err})
+        res.status(400).redirect('/')
     } 
 } 
 
 const updateOffert = async (req, res) => {
     try {
-        let offerToEdit = await Offer.findById(req.body.id);
-        offerToEdit.description = req.body.newDescription;
-        const result = offerToEdit.save();
-        res.status(200).json(result);
+        if (req.query.currentOfferId) {
+            console.log(req.query.currentOfferId);
+            let offerToEdit = await Offer.findById(req.query.currentOfferId);
+
+            offerToEdit.title = req.body.title;
+            offerToEdit.companyName = req.body.companyName;
+            offerToEdit.description = req.body.description;
+            offerToEdit.salary = req.body.salary;
+            offerToEdit.location = req.body.location;
+            offerToEdit.URL = req.body.URL;
+
+            await offerToEdit.save();
+            res.status(200).redirect('/dashboard')
+
+        } else {
+            res.status(400).redirect('/dashboard')
+        } 
     }
     catch(err){
-        res.status(400).json({"error":err});
+        res.status(400).redirect('/')
     }; 
 };
 
 const deleteOffert = async (req, res) => {
     try {
-        let offerToDelete = await Offer.findById(req.body.id); //primero busca la oferta
-        const result = offerToDelete.remove();  // luego borra la oferta
-        res.status(200).json(result);
+        if(req.query.currentOfferId) {
+            let offerToDelete = await Offer.findById(req.query.currentOfferId); //primero busca la oferta
+            await offerToDelete.remove();  // luego borra la oferta
+            res.status(400).redirect('/dashboard')
+        }else {
+            res.status(400).redirect('/dashboard')
+        }
     }
     catch(err){
-        res.status(400).json({"error":err})
+        res.status(400).redirect('/')
     } 
 }
 

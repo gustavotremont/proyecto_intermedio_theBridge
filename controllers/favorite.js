@@ -1,18 +1,22 @@
 const Favorite = require("../models/favorite");
+const jwt = require("jsonwebtoken");
 
+//http://localhost:3000/favorites/?currectUserEmail=isabela@gmail.com
 const getFavorite = async (req, res) => {
     try {
-        if(req.query.currectFavoriteId){
-            const result = await Favorite.getFavorite(req.query.currectFavoriteId);
-            res.status(200).json(result);
-        }else if(req.query.currectUserEmail) {
+        if(req.query.currectUserEmail) {
             const result = await Favorite.getAllFavoritesByUser(req.query.currectUserEmail);
-            res.status(200).json({ favorites: result });
+            console.log(result);
+            res.status(200).render('favorites',{favorites:result});
+
         }else{
-            res.status(400).json({"error":err})
+            const token = req.cookies.access_token
+            const data = jwt.verify(token, process.env.JWT_SECRET);
+            res.redirect(`/favorites/?currectUserEmail=${data.email}`);
         }   
+        
     } catch (err) {
-        res.status(400).json({"error":err})
+        res.status(400).redirect('/')
     }
     
     
@@ -29,10 +33,15 @@ const createFavorite = async (req, res) => {
 
 const deleteFavorite = async (req, res) => {
     try {
-        const result = await Favorite.deleteFavorite(req.body.id);
-        res.status(200).send("oferta eliminada de favoritos");
+        if (req.query.favorite) {
+            await Favorite.deleteFavorite(req.query.favorite);
+            res.status(200).redirect('/favorites');
+        }else{
+            res.status(200).redirect('/favorites');
+        }
+        
     } catch (err) {
-        res.status(400).json({"error":err})
+        res.status(400).redirect('/');
     }
 };
 
