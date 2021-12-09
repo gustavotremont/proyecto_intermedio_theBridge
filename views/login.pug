@@ -6,12 +6,17 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Log In
         link(rel="stylesheet", href="/css/styles.css")
+        link(rel="stylesheet", href="/css/normalize.css")
+        <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
     body 
         include ./header
-        h1 Accede como candidato
+      
+        h2 Accede como candidato
         include ./messages
- 
-        form#loginForm(action="/api/login" method="POST")
+        
+        form#loginForm.containerForm(action="/api/login" method="POST")
             label(for="loginEmail") Email
             input#loginEmail(type='email' name='loginEmail' placeholder='email' required)
 

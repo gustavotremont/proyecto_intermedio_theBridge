@@ -6,26 +6,28 @@ html(lang="en")
       meta(name="viewport", content="width=device-width, initial-scale=1.0")
       title Home
       link(rel="stylesheet", href="/css/styles.css")
+      link(rel="stylesheet", href="/css/normalize.css")
       <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
       <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
-      <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+
    body 
 
    body 
          include ./header
-         include ./cabecera
-
+         div.eslogan
+            h2.titleJob Encuentra tu trabajo ideal como Desarrollador
          div.sectionOffer
-            h1 Buscar Oferta
-            div.containerForm
-            form.searchForm(action="/api/search" method="GET")
-            div.input1
+            h2 Buscar Oferta
+            
+            form.searchForm.containerForm(action="/api/search" method="GET")
+        
                label(for="keywordSearch") Busco ofertas de...
                input#keywordSearch(type='text' name='keywordSearch' value=typeof keyword != 'undefined' ? keyword : ''  placeholder='Puesto, empresa o palabra clave' required='')
-            div.input2
+            
                label(for="locationSearch") En...
                input#locationSearch(type='text' name='locationSearch' value=typeof location != 'undefined' ? location : '' placeholder='Toda España')
-            div.button
+            
                input.btnSearch(type='submit' value="Buscar")
 
          if dataList

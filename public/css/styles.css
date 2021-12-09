@@ -1,13 +1,19 @@
-body {
+body  {
     font-family: 'Comfortaa', cursive;
     font-weight: 20px;
-    background-color: #f4f0ec;
+    background-color: #fddc5e;
+    
 }
 
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #000000;
+}
+
+.navbar .container, .navbar #hamburger {
+    padding: 0 30px
 }
 
 .dropdown{
@@ -17,7 +23,8 @@ body {
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #002626;
+    background-color: #7697f4;
+    /* background-color: #002626; */
     overflow-y: hidden;
     transition: 0.5s;
 }
@@ -34,26 +41,27 @@ body {
     padding: 10px;
     text-decoration: none;
     font-size: 30px;
-    color: gray;
+    color: rgb(12, 12, 12);
     display: block;
     transition: 0.3s;
 }
 
 .dropdown a:hover, .dropdown a:focus {
     color: whitesmoke;
+    box-shadow:whitesmoke ;
 }
 
 #hamburger {
     position: relative;
-    color: #0e4749;
-    font-size: 30px;
+    color: #7697f4;
+    font-size: 40px;
     cursor: pointer;
 }
 
 .dropdown #buttonX {
     text-align: end;
     font-size: 50px;
-    color: #73937e;
+    color: rgb(12, 12, 12);
     cursor: pointer;
     display: block;
     transition: 0.3s;
@@ -73,38 +81,55 @@ body {
 .fav-yes {
     color: gold;
 }
-/***************Estilo HOME **************************/
-
-
+/***************Estilo Header **************************/
 .container{
     display: flex;
     justify-content: space-evenly;
-    background-color: #fddc5e;
-    
+    align-items: center;
 }
 .titleJob{
-    font-family: 'Bungee Shade', cursive;
-    color:#6fa499;
-    font-size: 20px;
+    font-family: 'Bungee', cursive;
+    color: #000000;
+    font-size: 23px;
+    text-align: center;
+    padding: 25px;
+    background-color: #7697f4;
+    margin: 0px;
     
 }
 .logo{
     height: 100px; 
     padding: 15px;      
 }
+.eslogan{
+    background-color: #7697f4;
+}
 /************Formulario Home ******************/
 .containerForm{
     display: flex;
     flex-direction: column;
+    padding: 10px;
     
 }
+
+.containerForm *{
+    
+    padding: 5px 0;
+    margin: 0 15px
+}
+
+
 .searchForm{
     margin:10px 10px 10px 10px;
-   
-
 }
-.sectionOffer {
+
+#btnSignup {
+    margin: 15px 100px 0;
+}
+
+/* .sectionOffer {
     margin-top: 75px;
+    padding: 10px;
 }
 .locationSearch{
     margin: 10px;
@@ -112,9 +137,18 @@ body {
 #keywordSearch{
     margin: 10px;
     /* margin-left: 30px; */
-}
-.button{
-    margin: 10px;
 
+.button{
+    margin: 15px 100px 0;
+    text-align: center;
+}
+
+/* ********formulario singUp********
+.formSingUp{
+    display: flex;
+    justify-content: center;
+} */
+
+h2{
     text-align: center;
 }

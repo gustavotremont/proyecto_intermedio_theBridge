@@ -6,11 +6,16 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Dashboard
         link(rel="stylesheet", href="/css/styles.css")
+        link(rel="stylesheet", href="/css/normalize.css")
+        <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
     body 
-        include ./header         
+        include ./header 
+                
         a(href='/dashboard/create') Crear Oferta   
 
-        h1 Esto son todas las ofertas de trabajo
+        h2 Esto son todas las ofertas de trabajo
             section 
                 each offer in result
                     article 
@@ -22,7 +27,7 @@ html(lang="en")
                         p localización: #{offer.location}
                         a(href=`/dashboard/edit/?currentOfferId=${offer._id}`) Modificar Oferta 
                         form(action=`/api/ads?_method=DELETE&currentOfferId=${offer._id}`, method="post")
-                            input(type="submit", value="Borrar esta oferta")
+                            input#btnSignup(type="submit", value="Borrar esta oferta")
                     hr
                      
         script(src="/js/dropdown_menu.js")    
