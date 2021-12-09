@@ -14,25 +14,23 @@ html(lang="en")
         section 
                 form(action="/api/ads" method="POST")
                         label(for="title") Puesto
-                        input#title(type='text' name='title' placeholder='Nombre Oferta' required='')
+                        input#title(type='text' name='title' value=typeof title != 'undefined' ? title : '' placeholder='Nombre Oferta' required='')
                         
                         label(for="companyName") Compañia
-                        input#companyName(type='text' name='companyName' placeholder='Nombre Empresa' required='')
+                        input#companyName(type='text' name='companyName' value=typeof companyName != 'undefined' ? companyName : '' placeholder='Nombre Empresa' required='')
                         
                         label(for="description") Descripción
-                        input#description(type='text' name='description' placeholder='Descripción' required='')
+                        input#description(type='text' name='description' value=typeof description != 'undefined' ? description : '' placeholder='Descripción' required='')
                         
                         label(for="salary") Salario
-                        input#salary(type='number' name='salary' placeholder='Salario' required='')
+                        input#salary(type='number' name='salary' value=typeof salary != 'undefined' ? salary : '' placeholder='Salario' required='')
                         
                         label(for="location") Localización
-                        input#location(type='text' name='location' placeholder='Localización' required='')
+                        input#location(type='text' name='location' value=typeof location != 'undefined' ? location : '' placeholder='Localización' required='')
                         
                         label(for="URL") URL
-                        input#URL(type='text' name='URL' placeholder='URL' required='')
+                        input#URL(type='text' name='URL' value=typeof URL != 'undefined' ? URL : '' placeholder='URL' required='')
 
                         input(type="submit", value="Crear Oferta")
                      
         script(src="/js/dropdown_menu.js") 
-
-            
