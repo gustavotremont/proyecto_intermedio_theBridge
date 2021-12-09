@@ -13,21 +13,21 @@ html(lang="en")
     body 
         include ./header 
                 
-        a(href='/dashboard/create') Crear Oferta   
+        a.createofert(href='/dashboard/create') Crear Oferta   
 
         h2 Esto son todas las ofertas de trabajo
-            section 
+            section.offerSection
                 each offer in result
-                    article 
-                        p Puesto: #{offer.title}
-                        p Compañia: #{offer.companyName}
+                    article.target
+                        p#puesto Puesto: #{offer.title}
+                        p#compania Compañia: #{offer.companyName}
                         a(href=offer.URL) Link a la oferta 
-                        p Salario: #{offer.salary}
-                        p Descripción: #{offer.description}                    
-                        p localización: #{offer.location}
+                        p#salario Salario: #{offer.salary}
+                        p#descripcion Descripción: #{offer.description}                    
+                        p#localizacion localización: #{offer.location}
                         a(href=`/dashboard/edit/?currentOfferId=${offer._id}`) Modificar Oferta 
                         form(action=`/api/ads?_method=DELETE&currentOfferId=${offer._id}`, method="post")
-                            input#btnSignup(type="submit", value="Borrar esta oferta")
-                    hr
+                            input#btnSignup(type="submit", value="Borrar")
+              
                      
         script(src="/js/dropdown_menu.js")    

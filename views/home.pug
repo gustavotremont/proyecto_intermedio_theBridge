@@ -28,12 +28,12 @@ html(lang="en")
                label(for="locationSearch") En...
                input#locationSearch(type='text' name='locationSearch' value=typeof location != 'undefined' ? location : '' placeholder='Toda España')
             
-               input.btnSearch(type='submit' value="Buscar")
+               input#btnSignup(type='submit' value="Buscar")
 
          if dataList
-            section 
+            section
                each offer in dataList
-                  article.offer-info 
+                  article.target.scraping 
                      p.offer-title #{offer.title}
                      p.offer-company-name #{offer.companyName}
                      p.offer-description #{offer.description}

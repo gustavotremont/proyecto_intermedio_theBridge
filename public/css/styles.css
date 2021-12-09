@@ -1,7 +1,7 @@
 body  {
     font-family: 'Comfortaa', cursive;
     font-weight: 20px;
-    background-color: #fddc5e;
+    background-color: #94B0FF;
     
 }
 
@@ -79,8 +79,21 @@ body  {
 }
 
 .fav-yes {
-    color: gold;
+    color: rgb(185, 33, 13);
 }
+a{
+    color: #121213;
+    text-decoration: none;
+    margin: 10px 0;    
+}
+
+.modify{
+    background-color: rgba(180, 164, 164, 0.897);
+    padding: 10px;
+    border-radius: 2px;
+    text-align: center;
+}
+
 /***************Estilo Header **************************/
 .container{
     display: flex;
@@ -89,7 +102,8 @@ body  {
 }
 .titleJob{
     font-family: 'Bungee', cursive;
-    color: #000000;
+    color: #1d1d1c;
+    border:2px;
     font-size: 23px;
     text-align: center;
     padding: 25px;
@@ -124,31 +138,69 @@ body  {
 }
 
 #btnSignup {
-    margin: 15px 100px 0;
+    margin: 15px 140px 0;
+    background-color: #fddc5e;
+    border-radius: 8px;
+    border: 2px solid #F5D176
 }
-
-/* .sectionOffer {
-    margin-top: 75px;
-    padding: 10px;
-}
-.locationSearch{
-    margin: 10px;
-}
-#keywordSearch{
-    margin: 10px;
-    /* margin-left: 30px; */
 
 .button{
     margin: 15px 100px 0;
     text-align: center;
 }
 
-/* ********formulario singUp********
-.formSingUp{
-    display: flex;
-    justify-content: center;
-} */
+/* ********Dashboard********/
+.offerSection{
+    font-size: 15px;
+}
+a.createofert{
+    font-weight: bold;
+    margin-top: 56px;
+    background-color: #fddc5e;
+    border-radius: 4px;
+    border: 2px solid #F5D176;
+    text-align: center;
+}
+.target{
+    background-color: cornsilk;
+    border-radius: 39px;
+    padding: 16px;
+    margin: 32px;
+}
+.target.scraping {
+    background-color: cornsilk;
+    border-radius: 80px;
+    padding: 8px;
+    margin: 8px;
+    box-shadow: black 2px;
+    font-size: 10px;
+    text-align: center;
+}
+/********Profile******************/
+.user-profile{
+    background-color: #7697f4;
+    margin:10px 30px;
+    text-align: center;
+    font-weight:100px;
+    padding: 20px;
+    border-radius: 6px;;
+
+}
 
 h2{
     text-align: center;
+}
+
+#puesto{
+    font-size: 24px;
+    font-weight: bold;
+}
+#compania{
+ font-size: 16px;
+}
+#descripcion{
+    font-size: 12px;
+}
+#salario{
+    font-size: 16px;
 }
