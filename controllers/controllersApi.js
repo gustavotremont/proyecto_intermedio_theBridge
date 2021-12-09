@@ -14,6 +14,12 @@ const home = (req,res) =>{
 //funcion para login
 const login = async (req, res) => {
     try {
+        if(userName = '' ) {
+            errors.push({msg : "Completa todos los campos"})
+        }
+        if(userPassword = '' ) {
+            errors.push({msg : "Completa todos los campos"})
+        }
         const user = await User.getUser(req.body.loginEmail);
         if (user) {
             const passwordMatch = await bcrypt.verifyPassword(req.body.loginPassword, user.user_password)

@@ -6,7 +6,6 @@ const createUser = async (req, res) => {
     try {
 
         const {userName, userEmail, userPassword, userPassword2, userAge, userTlf, userDni} = req.body;
-
         let errors = [];
 
         if(!userName || !userEmail || !userPassword || !userPassword2 || !userAge || !userTlf || !userDni) {
@@ -16,6 +15,9 @@ const createUser = async (req, res) => {
         //check if match
         if(userPassword !== userPassword2) {
             errors.push({msg : "Las contraseñas no coinciden"});
+        }
+        if(userPassword.length >= 6) {
+            errors.push({msg : "La contraseña tiene que tener al menos 6 dígitos"});
         }
 
         if(userAge < 18 ) {
@@ -72,15 +74,21 @@ const createUser = async (req, res) => {
 
 const getUser = async (req, res) => {
     try {
+        let role = '';
+        if(req.cookies.access_token){
+            const token = jwt.verify(req.cookies.access_token, process.env.JWT_SECRET);
+            role = token.role;
+        }
+                
         if (req.params.action === 'create') {
-            res.status(200).render('userCreate');
+            res.status(200).render('userCreate',{role: role});
         } 
 
         else if(req.params.action === 'edit'){
 
             if (req.query.currentUserEmail) {
                 result = await User.getUser(req.query.currentUserEmail);
-                res.status(200).render('userEdit', {user: result});
+                res.status(200).render('userEdit', {user: result, role: role});
             } 
             else {
                 res.status(400).redirect('/');
@@ -89,7 +97,7 @@ const getUser = async (req, res) => {
     
         else {
             result = await User.getAllUsers()
-            res.status(200).render('users', {users:result});
+            res.status(200).render('users', {users:result, role: role});
 
         }      
     } catch (err) {
@@ -99,6 +107,12 @@ const getUser = async (req, res) => {
 
 const getProfile = async (req, res) => {
     try {
+        let role = '';
+        if(req.cookies.access_token){
+            const token = jwt.verify(req.cookies.access_token, process.env.JWT_SECRET);
+            role = token.role;
+        }
+
         if (req.params.email) {
                 const result = await User.getUser(req.params.email);
                 const data = {
@@ -109,9 +123,9 @@ const getProfile = async (req, res) => {
                     dni: result.user_dni
                 }
                 if (req.params.action==='edit') {
-                    res.status(200).render('profileEdit', data);
+                    res.status(200).render('profileEdit', {data,role: role});
                 }else {
-                    res.status(200).render('profile', data);
+                    res.status(200).render('profile', {data, role: role});
                 }
         } else {
             const email = getEmailByToken(req.cookies.access_token)
@@ -123,7 +137,8 @@ const getProfile = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-    try {     
+    try {   
+
         if(req.query.currentUserEmail){
             await User.deleteUser(req.query.currentUserEmail);
             res.status(200).redirect('/user')
@@ -136,7 +151,7 @@ const deleteUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-    try {    
+    try {             
         if(req.query.currentUserEmail){
             await User.updateUser(req.body, req.query.currentUserEmail);
             res.status(200).redirect('/');

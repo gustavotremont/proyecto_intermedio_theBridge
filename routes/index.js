@@ -14,7 +14,12 @@ routes.get('/', async (req, res) => {
 
 // /* GET signup. */
 routes.get('/signup', (req, res) => {
-    res.render('signup');
+    let role = '';
+    if(req.cookies.access_token){
+        const token = jwt.verify(req.cookies.access_token, process.env.JWT_SECRET);
+        role = token.role;
+    }
+    res.render('signup', {role: role});
 })
 
 // /* GET login. */
