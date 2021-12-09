@@ -71,3 +71,7 @@ body {
 .fav-yes {
     color: gold;
 }
+
+.error-image {
+    width: 400px;
+}
