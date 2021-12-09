@@ -1,103 +1,102 @@
 // LLAMAMOS A PUPPETEER
 const puppeteer = require("puppeteer");
 
-const scrapingLinke = async keyword => {
+// const scrapOffer = async (url, browser) =>{
+//     try{
+//         const offer = {};
+//         const page = await browser.newPage();
+//         await page.goto(url);
+
+//         await page.waitForSelector("h1");
+//             offer.title = await page.$eval('h1', e=>e.innerText)
+//             offer.companyName = await page.$eval('.text-primary', e=>e.innerText)
+//             offer.description = await page.$eval('.fs--16', e=>e.innerText.slice(0, 200))
+//             offer.location = await page.$eval('ul.list-unstyled :first-child .float-end', e=>e.innerText)
+//             offer.salary = await page.$eval('ul.list-unstyled :nth-child(6) .float-end', (e)=>{
+//                 const salario = e.innerText
+//                 return salario.includes('€') ? salario : 'Salario no disponible'
+//             }) 
+//             offer.url = url
+
+//         // //Rellenamos un objeto vacio con los atributos que queremos traernos de las ofertas
+//         // const uniqueOffer = await page.evaluate(() => {
+//             console.log("Esto es una unica tarjeta",offer)
+//         return offer;
+//         // });
+//         // cardsOffer.push(uniqueOffer);
+//         // console.log("Esto es una unica tarjeta", uniqueOffer);
+
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }
+/******************************funcion madre ************************************** */
+const scrapingTe = async (keyword, location) => {
     try {
         // Abre el navegador
         const browser = await puppeteer.launch({
-            headless: true,
-            args: ["--fast-start", "--disable-extensions", "--no-sandbox"],
-            ignoreHTTPSErrors: true,
-            defaultViewport: { width: 1366, height: 768 }  
+            headless: false,
         });
-
-        // Abre nueva página  Linkedin sin registro de usuario
+        // Abre nueva página  con TecnoEmpleo home
         const page = await browser.newPage();
-        await page.setViewport({
-            width: 1366,
-            height: 768 });
+        await page.setViewport({ width: 1366, height: 768 });
         await page.goto(
-            "https://www.linkedin.com/jobs"
+            "https://www.infojobs.net/"
         );
-
-            console.log("Entro a la web");
-        // Espera a que el input sea visible
-        await page.waitForSelector(".search-input");
-
-        //Escribe texto en el input seleccionado
-        await page.type(".search-input", keyword);
-
-        //     //click en el botón "Buscar"
-            console.log("pulso el botón buscar");
-        // await page.waitForSelector('buscar oferta home');
-        await page.click('button[data-searchbar-type="JOBS"]');
-    
         
-        // Espera a que sea visible el input filtro "Sin experiencia"
-        console.log("Esperando filtro")
-        await page.waitForSelector('li.filter:nth-child(5)>div>div>button');
-       //Hacemos click en el input"sin experiencia"
-       console.log("cliqueando filtro")
-        await page.click('li.filter:nth-child(5)>div>div>button');
+        await page.waitForSelector(".sui-AtomButton:nth-child(2)"); // Espera a que el input sea visible
+        await page.click(".sui-AtomButton:nth-child(2)"); //Escribe texto en el input seleccionado
 
-        // Espera a que sea visible el boton filtro "Sin experiencia"
-        console.log("Esperando SIN EXPERIENCIA")
-        await page.waitForSelector('div.filter-values-container__filter-values>div:nth-child(2)>input#f_E-1');
-        //Hacemos click en la opción "sin experiencia"
-        console.log("cliqueando SIN EXPERIENCIA")
-        await page.click('div.filter-values-container__filter-values>div:nth-child(2)>input#f_E-1');
+        await page.waitForSelector("#palabra"); // Espera a que el input sea visible
+        await page.type("#palabra", keyword); //Escribe texto en el input seleccionado
 
-        // Espera a que sea visible el boton HECHO de "Sin experiencia"
-        await page.waitForSelector('li.filter:nth-child(5)>div>div>div>button');
-        //Hacemos click en el BOTON HECHO "sin experiencia"
-        await page.click('li.filter:nth-child(5)>div>div>div>button');
+        await page.waitForSelector(".chosen-single"); // Espera a que el input sea visible
+        await page.click(".chosen-single"); //click en el input de localizacion
 
-        //··············CONTENEDOR DE ADS GENERAL Y LINKS·················//
-            console.log("espero al selector");
+        await page.waitForSelector(".chosen-search input"); // Espera a que el input sea visible
+        await page.type(".chosen-search input", location); //Escribe texto en el input seleccionado
+
+        await page.waitForSelector(".chosen-results li.active-result"); // Espera a que el input sea visible
+        await page.click(".chosen-results li.active-result"); //click en el input de localizacion
+    
+        // await page.waitForSelector('.btn-warning');
+        await page.click("#searchOffers"); //click en el botón "Buscar"
+        
+        await page.waitForSelector(".rc-slider-handle-2"); // Espera a que sea visible el filtro "Sin experiencia"
+        const experience = page.$('.rc-slider-handle-2');
+        await experience.evaluate((slider) => slider.style.left = '0%');
+
+        // ··············CONTENEDOR DE ADS GENERAL Y LINKS·················//
         // Espera a que sea visible el contenedor con las tarjetas de resultados
-        await page.waitForSelector(".jobs-search__results-list");
-
-            console.log("Nos traemos todas las ofertas");
-
-        //metodo evaluate}
+        await page.waitForSelector(".ij-ComponentList");
+        
         const links = await page.evaluate(() => {
-            console.log("Entramos");
-            const elements = document.querySelectorAll("div.base-search-card>a"); //h3 a
-            
-            //EN ESTE PUNTO NO MUESTRA TODAS LOS LINKS A LAS OFERTAS PORQUE PIDE "solicitar en el sitio web de  la empresa"
-            //Creamos un array vacio para iterar las ofertas de trabajo y pushearlas
+            const elements = document.querySelectorAll(".ij-OfferCardContent-description-title-link");
+    
             const dataJobs = [];
             for (let element of elements) {
-            dataJobs.push(element.href);
+                dataJobs.push(element.href);
             }
-        return dataJobs;
+            return dataJobs;
         });
-            console.log(links);
 
-        const cards = [];
-        for (let link of links) {
-            await page.goto(link);
-            await page.waitForSelector("h3");
+        //URLS filtradas 
+        const urls = links.filter(n => n);
+        console.log(urls);
 
-            const uniqueCardOffer = await page.evaluate(() => {
-            const offer = {};
-            offer.title = document.querySelector("h1.topcard__title").innerText;
-            offer.companyName = document.querySelector("a.topcard__org-name-link").innerText;
-            //oferta.salary=
-            //offer.url = window.location.href;
-            return offer;
-            });
-            cards.push(uniqueCardOffer);
-        console.log("Esta es una de las ofertas", uniqueCardOffer);
-        }
-
-        await browser.close();
-        return cards;
+        // // Recorremos los links de las ofertas
+        // const cardsOffer = [];
+        // for (let url of urls) {
+        //    const resultOffer = await scrapOffer(url, browser)
+        //    cardsOffer.push(resultOffer)
+        // }
+        // await browser.close();
+        // return cardsOffer;
     } catch (error) {
-            console.log(error);
+        console.log(error);
     }
 };
 
+scrapingTe("node.js", "madrid");
 
-scrapingLinke("desarrollador");
-
+exports.scrapingTe = scrapingTe;

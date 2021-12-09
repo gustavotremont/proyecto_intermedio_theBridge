@@ -9,12 +9,27 @@ html(lang="en")
    body 
          include ./header
          h1 Buscar Oferta
-         form.searchForm(action="/api/search" method="POST")
+         form.searchForm(action="/api/search" method="GET")
             label(for="keywordSearch") Busco ofertas de...
-            input#keywordSearch(type='text' name='keywordSearch' placeholder='Puesto, empresa o palabra clave' required='')
+            input#keywordSearch(type='text' name='keywordSearch' value=typeof keyword != 'undefined' ? keyword : ''  placeholder='Puesto, empresa o palabra clave' required='')
 
             label(for="locationSearch") En...
-            input#locationSearch(type='text' name='locationSearch' placeholder='Toda España')
+            input#locationSearch(type='text' name='locationSearch' value=typeof location != 'undefined' ? location : '' placeholder='Toda España')
   
             input.btnSearch(type='submit' value="Buscar")
-         script(src="/js/script.js") 
+
+         if dataList
+            section 
+               each offer in dataList
+                  article.offer-info 
+                     p.offer-title #{offer.title}
+                     p.offer-company-name #{offer.companyName}
+                     p.offer-description #{offer.description}
+                     p.offer-location #{offer.location}
+                     p.offer-salary #{offer.salary}
+                     a.offer-link(href=offer.url || offer.URL) Link a la oferta
+                     if role && role === 2
+                        span.offer-favorite.fav-no &#9733;
+                  hr   
+         script(src="/js/dropdown_menu.js") 
+         script(src="/js/add_favorites.js")
