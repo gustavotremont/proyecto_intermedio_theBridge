@@ -1,4 +1,6 @@
+const jwt = require('jsonwebtoken')
 const Offer = require('../models/offer');
+
 
 const createOffer = async (req,res) => {
     try{
@@ -28,7 +30,7 @@ const getOffers = async (req, res) => {
             role = token.role;
         } 
         if (req.params.action === 'create') {
-            res.status(200).render('dashboardCreate',{data, role: role});
+            res.status(200).render('dashboardCreate',{role: role});
         } 
         
         else if(req.params.action === 'edit'){
@@ -42,7 +44,7 @@ const getOffers = async (req, res) => {
         
         else {
             const result = await Offer.find({}, '-__v');
-            res.status(200).render('dashboard',{result: result}) // Devuelve todos las ofertas
+            res.status(200).render('dashboard',{result: result,role: role }) // Devuelve todos las ofertas
         }
     } 
     catch(err){

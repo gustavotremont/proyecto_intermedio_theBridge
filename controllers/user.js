@@ -81,14 +81,14 @@ const getUser = async (req, res) => {
         }
                 
         if (req.params.action === 'create') {
-            res.status(200).render('userCreate',{data, role: role});
+            res.status(200).render('userCreate',{role: role});
         } 
 
         else if(req.params.action === 'edit'){
 
             if (req.query.currentUserEmail) {
                 result = await User.getUser(req.query.currentUserEmail);
-                res.status(200).render('userEdit', {user: result});
+                res.status(200).render('userEdit', {user: result, role: role});
             } 
             else {
                 res.status(400).redirect('/');
@@ -97,7 +97,7 @@ const getUser = async (req, res) => {
     
         else {
             result = await User.getAllUsers()
-            res.status(200).render('users', {users:result});
+            res.status(200).render('users', {users:result, role: role});
 
         }      
     } catch (err) {
@@ -123,9 +123,9 @@ const getProfile = async (req, res) => {
                     dni: result.user_dni
                 }
                 if (req.params.action==='edit') {
-                    res.status(200).render('profileEdit', {data, role: role});
+                    res.status(200).render('profileEdit', {data,role: role});
                 }else {
-                    res.status(200).render('profile', data);
+                    res.status(200).render('profile', {data, role: role});
                 }
         } else {
             const email = getEmailByToken(req.cookies.access_token)
