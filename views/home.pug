@@ -6,17 +6,27 @@ html(lang="en")
       meta(name="viewport", content="width=device-width, initial-scale=1.0")
       title Home
       link(rel="stylesheet", href="/css/styles.css")
+      <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
+   body 
+
    body 
          include ./header
-         h1 Buscar Oferta
-         form.searchForm(action="/api/search" method="GET")
-            label(for="keywordSearch") Busco ofertas de...
-            input#keywordSearch(type='text' name='keywordSearch' value=typeof keyword != 'undefined' ? keyword : ''  placeholder='Puesto, empresa o palabra clave' required='')
+         include ./cabecera
 
-            label(for="locationSearch") En...
-            input#locationSearch(type='text' name='locationSearch' value=typeof location != 'undefined' ? location : '' placeholder='Toda España')
-  
-            input.btnSearch(type='submit' value="Buscar")
+         div.sectionOffer
+            h1 Buscar Oferta
+            div.containerForm
+            form.searchForm(action="/api/search" method="GET")
+            div.input1
+               label(for="keywordSearch") Busco ofertas de...
+               input#keywordSearch(type='text' name='keywordSearch' value=typeof keyword != 'undefined' ? keyword : ''  placeholder='Puesto, empresa o palabra clave' required='')
+            div.input2
+               label(for="locationSearch") En...
+               input#locationSearch(type='text' name='locationSearch' value=typeof location != 'undefined' ? location : '' placeholder='Toda España')
+            div.button
+               input.btnSearch(type='submit' value="Buscar")
 
          if dataList
             section 

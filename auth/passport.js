@@ -1,9 +1,9 @@
 const passportJWT = require('passport-jwt');
-const passportGoogle = require("passport-google-oauth")
+// const passportGoogle = require("passport-google-oauth")
 const User = require('../models/user')
 
 const JwtStrategy = passportJWT.Strategy;
-const GoogleStrategy = passportGoogle.OAuth2Strategy;
+// const GoogleStrategy = passportGoogle.OAuth2Strategy;
 // const ExtractJwt = passportJWT.ExtractJwt;
 
 // usar con cookie-parser

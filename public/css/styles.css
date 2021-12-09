@@ -1,5 +1,7 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Comfortaa', cursive;
+    font-weight: 20px;
+    background-color: #f4f0ec;
 }
 
 .navbar {
@@ -70,4 +72,49 @@ body {
 
 .fav-yes {
     color: gold;
+}
+/***************Estilo HOME **************************/
+
+
+.container{
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #fddc5e;
+    
+}
+.titleJob{
+    font-family: 'Bungee Shade', cursive;
+    color:#6fa499;
+    font-size: 20px;
+    
+}
+.logo{
+    height: 100px; 
+    padding: 15px;      
+}
+/************Formulario Home ******************/
+.containerForm{
+    display: flex;
+    flex-direction: column;
+    
+}
+.searchForm{
+    margin:10px 10px 10px 10px;
+   
+
+}
+.sectionOffer {
+    margin-top: 75px;
+}
+.locationSearch{
+    margin: 10px;
+}
+#keywordSearch{
+    margin: 10px;
+    /* margin-left: 30px; */
+}
+.button{
+    margin: 10px;
+
+    text-align: center;
 }
