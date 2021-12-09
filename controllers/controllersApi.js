@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const Offer = require('../models/offer')
 const bcrypt = require('../utils/cryptPassword')
+const jwt = require('jsonwebtoken')
 const getRoleByToken = require('../utils/getRoleByToken') 
 const scrapingTe = require('../utils/scraping_tecno')
 
@@ -91,7 +92,6 @@ const listSearch = async (req, res) => {
 } 
 
 const controllerApi ={
-    home,
     login,
     logout,
     listSearch
