@@ -1,25 +1,18 @@
 const Favorite = require("../models/favorite");
-const jwt = require("jsonwebtoken");
-const getEmailByToken = require('../utils/getEmailByToken')
+const getEmailByToken = require('../utils/getEmailByToken');
+const getRoleByToken = require('../utils/getRoleByToken');
 
-//http://localhost:3000/favorites/?currectUserEmail=isabela@gmail.com
 const getFavorite = async (req, res) => {
     try {
-        
-        let role = '';
-        if(req.cookies.access_token){
-            const token = jwt.verify(req.cookies.access_token, process.env.JWT_SECRET);
-            role = token.role;
-        } 
+        const role = getRoleByToken(req.cookies.access_token);
+
         if(req.query.currectUserEmail) {
             const result = await Favorite.getAllFavoritesByUser(req.query.currectUserEmail);
-            console.log(result);
             res.status(200).render('favorites',{favorites:result, role: role});
 
         }else{
-            const token = req.cookies.access_token
-            const data = jwt.verify(token, process.env.JWT_SECRET);
-            res.redirect(`/favorites/?currectUserEmail=${data.email}`);
+            const email = getEmailByToken(req.cookies.access_token);
+            res.redirect(`/favorites/?currectUserEmail=${email}`);
         }   
         
     } catch (err) {
@@ -32,7 +25,7 @@ const createFavorite = async (req, res) => {
     try {
         const email = getEmailByToken(req.cookies.access_token)
         await Favorite.createFavorite(req.body, email);
-        res.status(201).json({status: 'creado', obj: req.body});        
+        res.status(201).json({status: 'create'});        
     } catch (err) {
         res.status(400).json({"error":err})
     }
@@ -42,9 +35,9 @@ const deleteFavorite = async (req, res) => {
     try {
         const email = getEmailByToken(req.cookies.access_token)
         await Favorite.deleteFavorite(req.body.url, email);
-        res.status(201).json({status: 'borrado', obj: req.body});
+        res.status(201).json({status: 'delete'});
     } catch (err) {
-        res.status(400).redirect('/');
+        res.status(400).json({"error":err})
     }
 };
 

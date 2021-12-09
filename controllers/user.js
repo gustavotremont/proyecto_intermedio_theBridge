@@ -1,9 +1,10 @@
 const User = require("../models/user");
-const jwt = require("jsonwebtoken");
+const getRoleByToken = require('../utils/getRoleByToken')
 const getEmailByToken = require('../utils/getEmailByToken')
 
 const createUser = async (req, res) => {
     try {
+        const role = getRoleByToken(req.cookies.access_token);
 
         const {userName, userEmail, userPassword, userPassword2, userAge, userTlf, userDni} = req.body;
         let errors = [];
@@ -41,7 +42,8 @@ const createUser = async (req, res) => {
                 userPassword2,
                 userAge,
                 userTlf,
-                userDni
+                userDni,
+                role: role
             })
         }else {
             const emailAlredyExist = await User.getUser(userEmail);
@@ -55,7 +57,8 @@ const createUser = async (req, res) => {
                     userPassword2,
                     userAge,
                     userTlf,
-                    userDni
+                    userDni,
+                    role: role
                 })
             } else {
                 const result = await User.createUser(req.body);
@@ -74,11 +77,7 @@ const createUser = async (req, res) => {
 
 const getUser = async (req, res) => {
     try {
-        let role = '';
-        if(req.cookies.access_token){
-            const token = jwt.verify(req.cookies.access_token, process.env.JWT_SECRET);
-            role = token.role;
-        }
+        const role = getRoleByToken(req.cookies.access_token);
                 
         if (req.params.action === 'create') {
             res.status(200).render('userCreate',{role: role});
@@ -91,7 +90,7 @@ const getUser = async (req, res) => {
                 res.status(200).render('userEdit', {user: result, role: role});
             } 
             else {
-                res.status(400).redirect('/');
+                res.status(400).redirect('/user');
             }
         }
     
@@ -101,17 +100,13 @@ const getUser = async (req, res) => {
 
         }      
     } catch (err) {
-        res.status(400).redirect('/');
+        res.status(400).redirect('/user');
     }
 };
 
 const getProfile = async (req, res) => {
     try {
-        let role = '';
-        if(req.cookies.access_token){
-            const token = jwt.verify(req.cookies.access_token, process.env.JWT_SECRET);
-            role = token.role;
-        }
+        const role = getRoleByToken(req.cookies.access_token);
 
         if (req.params.email) {
                 const result = await User.getUser(req.params.email);
@@ -138,15 +133,14 @@ const getProfile = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     try {   
-
         if(req.query.currentUserEmail){
             await User.deleteUser(req.query.currentUserEmail);
             res.status(200).redirect('/user')
         } else {
-            res.status(400).redirect('/')
+            res.status(400).redirect('/user')
         }  
     } catch (err) {
-        res.status(400).redirect('/')
+        res.status(400).redirect('/user')
     }
 };
 
@@ -154,12 +148,12 @@ const updateUser = async (req, res) => {
     try {             
         if(req.query.currentUserEmail){
             await User.updateUser(req.body, req.query.currentUserEmail);
-            res.status(200).redirect('/');
+            res.status(200).redirect('/user');
         }else {
-            res.status(400).redirect('/')
+            res.status(400).redirect('/user')
         }     
     } catch (err) {
-        res.status(400).redirect('/')
+        res.status(400).redirect('/user')
     }
 };
 
