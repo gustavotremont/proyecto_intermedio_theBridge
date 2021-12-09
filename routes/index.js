@@ -5,7 +5,11 @@ const getRoleByToken = require('../utils/getRoleByToken')
 /* GET home page. */
 routes.get('/', async (req, res) => {
     const role = getRoleByToken(req.cookies.access_token);
-    res.render('home', {role: role});
+    if (role == 1) {
+        res.render('controlpanel', {role: role});
+    }else{
+        res.render('home', {role: role});
+    }
 })
 
 // /* GET signup. */
