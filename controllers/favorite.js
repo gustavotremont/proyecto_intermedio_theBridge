@@ -1,5 +1,6 @@
 const Favorite = require("../models/favorite");
 const jwt = require("jsonwebtoken");
+const getEmailByToken = require('../utils/getEmailByToken')
 
 //http://localhost:3000/favorites/?currectUserEmail=isabela@gmail.com
 const getFavorite = async (req, res) => {
@@ -24,8 +25,9 @@ const getFavorite = async (req, res) => {
 
 const createFavorite = async (req, res) => {
     try {
-        const result = await Favorite.createFavorite(req.body);
-        res.status(201).send("nueva oferta añadida a favoritos");        
+        const email = getEmailByToken(req.cookies.access_token)
+        await Favorite.createFavorite(req.body, email);
+        res.status(201).json({status: 'creado', obj: req.body});        
     } catch (err) {
         res.status(400).json({"error":err})
     }
@@ -33,13 +35,9 @@ const createFavorite = async (req, res) => {
 
 const deleteFavorite = async (req, res) => {
     try {
-        if (req.query.favorite) {
-            await Favorite.deleteFavorite(req.query.favorite);
-            res.status(200).redirect('/favorites');
-        }else{
-            res.status(200).redirect('/favorites');
-        }
-        
+        const email = getEmailByToken(req.cookies.access_token)
+        await Favorite.deleteFavorite(req.body.url, email);
+        res.status(201).json({status: 'borrado', obj: req.body});
     } catch (err) {
         res.status(400).redirect('/');
     }

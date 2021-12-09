@@ -1,6 +1,8 @@
 const User = require('../models/user');
 const bcrypt = require('../utils/cryptPassword')
 const jwt = require('jsonwebtoken'); //import jwt from 'jsonwebtoken'; 
+const Offer = require('../models/offer')
+const scrapingTe = require('../utils/scraping_tecno')
 
 require('../auth/auth');
 
@@ -51,22 +53,41 @@ const logout = (req, res) => {
     }
 }
 
-//Esperar al scrapping
-// const listSearch = async (req, res) => {
-//     try{
-//         let  dataSearch = await Offer.find({'title': req.body.title}) // quita los campos _id y __v
-//         res.status(200).json(dataSearch) // Devuelve el producto buscado
-//         } 
-//     catch(err){
-//         res.status(400).json({"error":err})
+// Esperar al scrapping
+const listSearch = async (req, res) => {
+    try{
+        const {keywordSearch, locationSearch} = req.query
+        const tecnoSearch = await scrapingTe(keywordSearch, locationSearch)
+        const mongoSearch = await Offer.find({
+                                                $and: [
+                                                    { $or: [
+                                                        {"title": { "$regex": keywordSearch, "$options": "i" } }, 
+                                                        {"description": { "$regex": keywordSearch, "$options": "i" } }
+                                                    ]},
+                                                    { "location": { "$regex": locationSearch, "$options": "i" } }
+                                                ]
+                                            }) // quita los campos _id y __v
+        const offersList = [...tecnoSearch, ...mongoSearch]
+
+        let role = '';
+        if(req.cookies.access_token){
+            const token = jwt.verify(req.cookies.access_token, process.env.JWT_SECRET);
+            role = token.role;
+        }
+
+        res.status(200).render('home', {dataList: offersList, role: role, keyword: keywordSearch, location: locationSearch}) // Devuelve el producto buscado
+    } 
+    catch(err){
+        res.status(400).json({"error":err})
     
-//     } 
-// } 
+    } 
+} 
 
 const controllerApi ={
     home,
     login,
     logout,
+    listSearch
 }
 
 module.exports = controllerApi;

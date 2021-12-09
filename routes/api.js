@@ -21,7 +21,7 @@ routes.post('/login', (req, res, next) => {
 routes.post('/logout', controllerApi.logout) //Finalizar Sesión
 
 /* **************** RUTAS BUSCADORE  *******************/
-// routes.get('/api/search', controllerApi.listSearch) //Ruta para Listado de resultados de busqueda
+routes.get('/search', controllerApi.listSearch) //Ruta para Listado de resultados de busqueda
 
 //******************** RUTAS OFERTAS *****************//
 routes.post('/ads', offer.createOffer) //Crear Oferta

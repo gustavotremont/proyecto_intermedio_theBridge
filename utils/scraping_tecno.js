@@ -20,7 +20,7 @@ const scrapOffer = async (url, browser) =>{
 
         // //Rellenamos un objeto vacio con los atributos que queremos traernos de las ofertas
         // const uniqueOffer = await page.evaluate(() => {
-            console.log("Esto es una unica tarjeta",offer)
+            // console.log("Esto es una unica tarjeta",offer)
         return offer;
         // });
         // cardsOffer.push(uniqueOffer);
@@ -31,7 +31,7 @@ const scrapOffer = async (url, browser) =>{
     }
 }
 /******************************funcion madre ************************************** */
-const scrapingTe = async keyword => {
+const scrapingTe = async (keyword, location) => {
     try {
         // Abre el navegador
         const browser = await puppeteer.launch({
@@ -43,31 +43,30 @@ const scrapingTe = async keyword => {
         await page.goto(
             "https://www.tecnoempleo.com/busqueda-empleo.php?cp=,29,&ex=,1,#buscador-ofertas-ini"
         );
-            console.log("Entro a la web");
-        // Espera a que el input sea visible
-        await page.waitForSelector("#te");
-        //Escribe texto en el input seleccionado
-        await page.type("#te", keyword);
-        //     //click en el botón "Buscar"
-            console.log("pulso el botón");
+
+        await page.waitForSelector("#te"); // Espera a que el input sea visible
+        await page.type("#te", keyword); //Escribe texto en el input seleccionado
+
+        await page.waitForSelector(".row div div div.dropdown button"); // Espera a que el input sea visible
+        await page.click(".row div div div.dropdown button"); //click en el input de localizacion
+
+        await page.waitForSelector(".bs-searchbox input"); // Espera a que el input sea visible
+        await page.type(".bs-searchbox input", location); //Escribe texto en el input seleccionado
+
+        await page.waitForSelector(".show ul li a"); // Espera a que el input sea visible
+        await page.click(".show ul li a"); //click en el input de localizacion
+    
         // await page.waitForSelector('.btn-warning');
-        await page.click(".btn-warning");
-        // Espera a que sea visible el filtro "Sin experiencia"
-        await page.waitForSelector(
-            "#sidebar_filters > div:nth-child(8) > a:nth-child(7)"
-        );
-        // Hacemos click en la opción "sin experiencia"
-        await page.click("#sidebar_filters > div:nth-child(8) > a:nth-child(7)");
+        await page.click(".btn-warning"); //click en el botón "Buscar"
+        
+        await page.waitForSelector("#sidebar_filters > div:nth-child(8) > a:nth-child(7)"); // Espera a que sea visible el filtro "Sin experiencia"
+        await page.click("#sidebar_filters > div:nth-child(8) > a:nth-child(7)"); // Hacemos click en la opción "sin experiencia"
 
         // ··············CONTENEDOR DE ADS GENERAL Y LINKS·················//
-            console.log("espero al selector");
         // Espera a que sea visible el contenedor con las tarjetas de resultados
         await page.waitForSelector(".p-2");
-
-            console.log("A ver si llega");
         
         const links = await page.evaluate(() => {
-            console.log("entramos");
             const elements = document.querySelectorAll("div.p-0 h5.h6-xs a");
     
             const dataJobs = [];
@@ -84,7 +83,7 @@ const scrapingTe = async keyword => {
         //URLS filtradas 
         const urls = links.filter(n => n);
 
-            console.log(urls);
+            // console.log(urls);
         // Recorremos los links de las ofertas
         const cardsOffer = [];
         for (let url of urls) {
@@ -98,6 +97,6 @@ const scrapingTe = async keyword => {
     }
 };
 
-scrapingTe("js");
+scrapingTe("programador", "barcelona");
 
-exports.scrapingTe = scrapingTe;
+module.exports = scrapingTe;
