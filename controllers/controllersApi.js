@@ -68,7 +68,14 @@ const listSearch = async (req, res) => {
                                                 ]
                                             }) // quita los campos _id y __v
         const offersList = [...tecnoSearch, ...mongoSearch]
-        res.status(200).render('home', {dataList: offersList}) // Devuelve el producto buscado
+
+        let role = '';
+        if(req.cookies.access_token){
+            const token = jwt.verify(req.cookies.access_token, process.env.JWT_SECRET);
+            role = token.role;
+        }
+
+        res.status(200).render('home', {dataList: offersList, role: role, keyword: keywordSearch, location: locationSearch}) // Devuelve el producto buscado
     } 
     catch(err){
         res.status(400).json({"error":err})

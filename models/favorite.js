@@ -1,23 +1,15 @@
 const pool = require('../utils/dbPostgres')
 
 //funcion para crear favoritos//
-const createFavorite = async (favoriteInfo) => {
-    const {
-        title,
-        companyName,
-        description,
-        salary,
-        location,
-        url,
-        userEmail,
-    } = favoriteInfo;
+const createFavorite = async (favoriteInfo, email) => {
+    const { title, companyName, description, salary, location, url } = favoriteInfo;
     let user, result;
     try {
         user = await pool.connect(); // Espera a abrir conexion
         const data = await user.query(
             `INSERT INTO favorites(favorite_title, favorite_companyName, favorite_description, favorite_salary, favorite_location, favorite_url, user_id) 
             VALUES ($1,$2,$3,$4,$5,$6,(SELECT user_id FROM users WHERE user_email = $7));`,
-            [title, companyName, description, salary, location, url, userEmail]
+            [title, companyName, description, salary, location, url, email]
         );
         result = data.rowCount;
     } catch (err) {
@@ -76,14 +68,14 @@ const getAllFavoritesByUser = async (userEmail) => {
 };
 
 // borrar favoritos de un usuario//
-const deleteFavorite = async favoriteId => {
+const deleteFavorite = async (favoriteURL, email) => {
     let user, result;
     try {
         user = await pool.connect(); // Espera a abrir conexion
 
         const data = await user.query(
-            `DELETE FROM public.favorites WHERE favorite_id = $1;`,
-            [favoriteId]
+            `DELETE FROM public.favorites WHERE favorite_url=$1 AND user_id=(SELECT user_id FROM users WHERE user_email = $2);`,
+            [favoriteURL, email]
         );
         result = data.rowCount;
     } catch (err) {
