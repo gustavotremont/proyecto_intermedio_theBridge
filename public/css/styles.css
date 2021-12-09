@@ -57,3 +57,17 @@ body {
     transition: 0.3s;
     padding: 10px;
 }
+
+.offer-favorite {
+    font-size: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.fav-no {
+    color: grey;
+}
+
+.fav-yes {
+    color: gold;
+}
