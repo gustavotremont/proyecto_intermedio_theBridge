@@ -13,11 +13,11 @@ html(lang="en")
     body 
         include ./header
         
-        a(href="/user/create") Crear Usuario
+        a.modify(href="/user/create") Crear Usuario
         h2 Usuarios Registrados
         section 
             each user in users 
-                article 
+                article#target.user
                     p #{user.user_name}
                     p #{user.user_email}
                     p #{user.user_password}
@@ -27,6 +27,6 @@ html(lang="en")
                     a(href=`/user/edit/?currentUserEmail=${user.user_email}`) Modificar Usuario 
                     form(action=`/api/user?_method=DELETE&currentUserEmail=${user.user_email}`, method="post")
                         input(type="submit", value="Borrar a este usuario")
-                hr
+                
                 
         script(src="/js/dropdown_menu.js")

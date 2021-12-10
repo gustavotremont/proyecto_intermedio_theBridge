@@ -156,21 +156,26 @@ a{
 }
 /* link de crear oferta */
 a.createofert{
+    margin: 15px 140px 0;
     font-weight: bold;
-    margin-top: 56px;
     background-color: #fddc5e;
     border-radius: 4px;
     border: 2px solid #F5D176;
-    text-align: center;
+    display: flex;
+    justify-content: center;
 }
 /* link de modificar perfil*/
 .modify{
+    margin: 15px 140px 0;
     font-weight: bold;
     background-color: #fddc5e;
     border-radius: 4px;
     border: 2px solid #F5D176;
-    text-align: center;
+    display: flex;
+    justify-content: center;
 }
+
+
 /* Tarjetas de trabajo creadas por Admin*/
 .target{
     background-color: cornsilk;
@@ -188,14 +193,24 @@ a.createofert{
     font-size: 10px;
     text-align: center;
 }
+/**** modificar perfil*/
+#target.user{
+    background-color: rgb(188, 235, 240);
+    border-radius: 80px;
+    padding: 8px;
+    margin: 8px;
+    box-shadow: black 2px;
+    font-size: 10px;
+    text-align: center;
+}
 /********Profile******************/
 .user-profile{
-    background-color: #7697f4;
+    background-color: rgb(188, 235, 240);
     margin:10px 30px;
     text-align: center;
     font-weight:100px;
     padding: 20px;
-    border-radius: 6px;;
+    border-radius: 100px;;
 
 }
 
