@@ -17,7 +17,7 @@ const createUser = async (req, res) => {
         if(userPassword !== userPassword2) {
             errors.push({msg : "Las contraseñas no coinciden"});
         }
-        if(userPassword.length >= 6) {
+        if(userPassword.length <= 6) {
             errors.push({msg : "La contraseña tiene que tener al menos 6 dígitos"});
         }
 

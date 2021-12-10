@@ -236,3 +236,15 @@ h2{
     width: 400px;
 }
 
+.error-list {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.error {
+    border: 1px black solid;
+    color: #FFFFFF;
+    padding: 2px;
+    background-color: #FF5B5E;
+}
