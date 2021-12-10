@@ -17,7 +17,7 @@ html(lang="en")
         h2 Lista de Favoritos
         section.user-favorites 
             each fav in favorites
-                article.favorite-info
+                article.favorite-info#target.scraping
                     p Puesto: #{fav.favorite_title}
                     p Compañia: #{fav.favorite_companyname}
                     p URL: #{fav.favorite_url}
@@ -26,6 +26,6 @@ html(lang="en")
                     p localización: #{fav.favorite_location}
                     form(action=`/api/favorite/?_method=DELETE&favorite=${fav.favorite_id}`, method="post")
                         input#btnSignup(type="submit", value="Borrar de favotiros")
-                hr
+                
 
         script(src="/js/dropdown_menu.js")
