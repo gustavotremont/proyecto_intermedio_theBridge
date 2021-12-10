@@ -6,7 +6,6 @@ const user = require("../controllers/user");
 const offer = require('../controllers/offer');
 const favorite = require("../controllers/favorite");
 
-
 //******************** RUTAS USER *****************//
 routes.post("/user", user.createUser); //Crear Usuario
 routes.delete("/user", user.deleteUser); //Borrar Usuario

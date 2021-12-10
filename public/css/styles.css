@@ -81,6 +81,7 @@ body  {
 .fav-yes {
     color: rgb(185, 33, 13);
 }
+
 a{
     color: #121213;
     text-decoration: none;
@@ -215,3 +216,8 @@ h2{
 #salario{
     font-size: 16px;
 }
+
+.error-image {
+    width: 400px;
+}
+

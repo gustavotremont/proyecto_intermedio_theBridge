@@ -18,10 +18,10 @@ html(lang="en")
         
         form#loginForm.containerForm(action="/api/login" method="POST")
             label(for="loginEmail") Email
-            input#loginEmail(type='email' name='loginEmail' placeholder='email' required)
+            input#loginEmail(type='email' name='loginEmail' value=typeof loginEmail != 'undefined' ? loginEmail : '' placeholder='email' required)
 
             label(for="loginPassword") Contraseña
-            input#loginPassword(type='password' name='loginPassword' placeholder='contraseña' required)
+            input#loginPassword(type='password' name='loginPassword' value=typeof loginPassword != 'undefined' ? loginPassword : '' placeholder='contraseña' required)
 
             input#btnSignup(type='submit' value='Acceder')
         script(src="/js/dropdown_menu.js")

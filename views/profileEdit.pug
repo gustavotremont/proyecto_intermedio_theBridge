@@ -13,22 +13,21 @@ html(lang="en")
         <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
     body 
         include ./header
-        
-        h2 Modifica los campos
-        
+
+        h2 Modifica los campos        
         form.containerForm(action=`/api/user/?_method=PUT&currentUserEmail=${email}`, method="POST") 
-            
+        
             label(for="userName") Nombre
-            input#userName(type="text" name='userName' value=name required='')
+            input#userName(type="text" name='userName' value=data.name required='')
 
             label(for="userAge") Edad
-            input#userAge(type="number" name='userAge' value=age required='')
+            input#userAge(type="number" name='userAge' value=data.age required='')
 
             label(for="userTlf") Telefono
-            input#userTlf(type="text" name='userTlf' value=tlf maxlength='9' required='')
+            input#userTlf(type="text" name='userTlf' value=data.tlf maxlength='9' required='')
 
             label(for="userDNI") DNI
-            input#userDNI(type="text" name='userDNI' value=dni maxlength='9' required='')
+            input#userDNI(type="text" name='userDNI' value=data.dni maxlength='9' required='')
 
             input#btnSignup(type="submit", value="Modificar Usuario")
         script(src="/js/dropdown_menu.js")

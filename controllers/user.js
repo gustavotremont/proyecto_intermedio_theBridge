@@ -1,12 +1,12 @@
 const User = require("../models/user");
-const jwt = require("jsonwebtoken");
+const getRoleByToken = require('../utils/getRoleByToken')
 const getEmailByToken = require('../utils/getEmailByToken')
 
 const createUser = async (req, res) => {
     try {
+        const role = getRoleByToken(req.cookies.access_token);
 
         const {userName, userEmail, userPassword, userPassword2, userAge, userTlf, userDni} = req.body;
-
         let errors = [];
 
         if(!userName || !userEmail || !userPassword || !userPassword2 || !userAge || !userTlf || !userDni) {
@@ -16,6 +16,9 @@ const createUser = async (req, res) => {
         //check if match
         if(userPassword !== userPassword2) {
             errors.push({msg : "Las contraseñas no coinciden"});
+        }
+        if(userPassword.length >= 6) {
+            errors.push({msg : "La contraseña tiene que tener al menos 6 dígitos"});
         }
 
         if(userAge < 18 ) {
@@ -39,7 +42,8 @@ const createUser = async (req, res) => {
                 userPassword2,
                 userAge,
                 userTlf,
-                userDni
+                userDni,
+                role: role
             })
         }else {
             const emailAlredyExist = await User.getUser(userEmail);
@@ -53,7 +57,8 @@ const createUser = async (req, res) => {
                     userPassword2,
                     userAge,
                     userTlf,
-                    userDni
+                    userDni,
+                    role: role
                 })
             } else {
                 const result = await User.createUser(req.body);
@@ -72,33 +77,37 @@ const createUser = async (req, res) => {
 
 const getUser = async (req, res) => {
     try {
+        const role = getRoleByToken(req.cookies.access_token);
+                
         if (req.params.action === 'create') {
-            res.status(200).render('userCreate');
+            res.status(200).render('userCreate',{role: role});
         } 
 
         else if(req.params.action === 'edit'){
 
             if (req.query.currentUserEmail) {
                 result = await User.getUser(req.query.currentUserEmail);
-                res.status(200).render('userEdit', {user: result});
+                res.status(200).render('userEdit', {user: result, role: role});
             } 
             else {
-                res.status(400).redirect('/');
+                res.status(400).redirect('/user');
             }
         }
     
         else {
             result = await User.getAllUsers()
-            res.status(200).render('users', {users:result});
+            res.status(200).render('users', {users:result, role: role});
 
         }      
     } catch (err) {
-        res.status(400).redirect('/');
+        res.status(400).redirect('/user');
     }
 };
 
 const getProfile = async (req, res) => {
     try {
+        const role = getRoleByToken(req.cookies.access_token);
+
         if (req.params.email) {
                 const result = await User.getUser(req.params.email);
                 const data = {
@@ -109,9 +118,9 @@ const getProfile = async (req, res) => {
                     dni: result.user_dni
                 }
                 if (req.params.action==='edit') {
-                    res.status(200).render('profileEdit', data);
+                    res.status(200).render('profileEdit', {data,role: role});
                 }else {
-                    res.status(200).render('profile', data);
+                    res.status(200).render('profile', {data, role: role});
                 }
         } else {
             const email = getEmailByToken(req.cookies.access_token)
@@ -123,28 +132,28 @@ const getProfile = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-    try {     
+    try {   
         if(req.query.currentUserEmail){
             await User.deleteUser(req.query.currentUserEmail);
             res.status(200).redirect('/user')
         } else {
-            res.status(400).redirect('/')
+            res.status(400).redirect('/user')
         }  
     } catch (err) {
-        res.status(400).redirect('/')
+        res.status(400).redirect('/user')
     }
 };
 
 const updateUser = async (req, res) => {
-    try {    
+    try {             
         if(req.query.currentUserEmail){
             await User.updateUser(req.body, req.query.currentUserEmail);
-            res.status(200).redirect('/');
+            res.status(200).redirect('/user');
         }else {
-            res.status(400).redirect('/')
+            res.status(400).redirect('/user')
         }     
     } catch (err) {
-        res.status(400).redirect('/')
+        res.status(400).redirect('/user')
     }
 };
 

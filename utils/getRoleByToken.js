@@ -1,12 +1,12 @@
 const jwt = require('jsonwebtoken'); //import jwt from 'jsonwebtoken'; 
 
-const getEmailByToken = (token) => {
-    let email = '';
+const getRoleByToken = (token) => {
+    let role = '';
     if (token) {
         const data = jwt.verify(token, process.env.JWT_SECRET);
-        email = data.email;
+        return data.role;
     }
-    return email;
+    return role;
 };
 
-module.exports = getEmailByToken;
+module.exports = getRoleByToken;

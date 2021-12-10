@@ -1,10 +1,14 @@
+const getRoleByToken = require('../utils/getRoleByToken')
+
 const error404 = (req,res,next) => {
+    const role = getRoleByToken(req.cookies.access_token);
+
     const data = {
-      message:"Error! 404 not found",
-      url:"https://seranking.com/blog/wp-content/uploads/2021/01/404_01-min.jpg",
-      status: 404
+      title: "Error! 404",
+      message: "La Pagina no a sido encontrada, vuelva a intentarlo",
+      url: "https://www.lancetalent.com/blog/wp-content/uploads/paginas_erro_404.png"
     };
-    res.status(404).render('error',data);
+    res.status(404).render('error',{error: data, role: role});
 };
 
 const errors = {
