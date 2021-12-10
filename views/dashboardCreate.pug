@@ -6,13 +6,18 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Dashboard
         link(rel="stylesheet", href="/css/styles.css")
+        link(rel="stylesheet", href="/css/normalize.css")
+        <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
     body 
-        include ./header         
+        include ./header  
+              
         a(href='/dashboard') Volver  
 
-        h1 Crear Oferta
-        section 
-                form(action="/api/ads" method="POST")
+        h2 Crear Oferta
+        section.container
+                form.containerForm(action="/api/ads" method="POST")
                         label(for="title") Puesto
                         input#title(type='text' name='title' value=typeof title != 'undefined' ? title : '' placeholder='Nombre Oferta' required='')
                         
@@ -31,6 +36,6 @@ html(lang="en")
                         label(for="URL") URL
                         input#URL(type='text' name='URL' value=typeof URL != 'undefined' ? URL : '' placeholder='URL' required='')
 
-                        input(type="submit", value="Crear Oferta")
+                        input#btnSignup(type="submit", value="Crear Oferta")
                      
         script(src="/js/dropdown_menu.js") 

@@ -1,11 +1,19 @@
-body {
-    font-family: Arial, Helvetica, sans-serif;
+body  {
+    font-family: 'Comfortaa', cursive;
+    font-weight: 20px;
+    background-color: #94B0FF;
+    
 }
 
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #000000;
+}
+
+.navbar .container, .navbar #hamburger {
+    padding: 0 30px
 }
 
 .dropdown{
@@ -15,7 +23,8 @@ body {
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #002626;
+    background-color: #7697f4;
+    /* background-color: #002626; */
     overflow-y: hidden;
     transition: 0.5s;
 }
@@ -32,26 +41,27 @@ body {
     padding: 10px;
     text-decoration: none;
     font-size: 30px;
-    color: gray;
+    color: rgb(12, 12, 12);
     display: block;
     transition: 0.3s;
 }
 
 .dropdown a:hover, .dropdown a:focus {
     color: whitesmoke;
+    box-shadow:whitesmoke ;
 }
 
 #hamburger {
     position: relative;
-    color: #0e4749;
-    font-size: 30px;
+    color: #7697f4;
+    font-size: 40px;
     cursor: pointer;
 }
 
 .dropdown #buttonX {
     text-align: end;
     font-size: 50px;
-    color: #73937e;
+    color: rgb(12, 12, 12);
     cursor: pointer;
     display: block;
     transition: 0.3s;
@@ -69,9 +79,145 @@ body {
 }
 
 .fav-yes {
-    color: gold;
+    color: rgb(185, 33, 13);
+}
+
+a{
+    color: #121213;
+    text-decoration: none;
+    margin: 10px 0;    
+}
+
+.modify{
+    background-color: rgba(180, 164, 164, 0.897);
+    padding: 10px;
+    border-radius: 2px;
+    text-align: center;
+}
+
+/***************Estilo Header **************************/
+.container{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.titleJob{
+    font-family: 'Bungee', cursive;
+    color: #1d1d1c;
+    border:2px;
+    font-size: 23px;
+    text-align: center;
+    padding: 25px;
+    background-color: #7697f4;
+    margin: 0px;
+    
+}
+.logo{
+    height: 100px; 
+    padding: 15px;      
+}
+.eslogan{
+    background-color: #7697f4;
+}
+/************Formulario Home ******************/
+.containerForm{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    
+}
+
+.containerForm *{
+    
+    padding: 5px 0;
+    margin: 0 15px
+}
+
+
+.searchForm{
+    margin:10px 10px 10px 10px;
+}
+
+#btnSignup {
+    margin: 15px 140px 0;
+    background-color: #fddc5e;
+    border-radius: 8px;
+    border: 2px solid #F5D176
+}
+
+.button{
+    margin: 15px 100px 0;
+    text-align: center;
+}
+
+/* ********Dashboard********/
+.offerSection{
+    font-size: 15px;
+}
+/* link de crear oferta */
+a.createofert{
+    font-weight: bold;
+    margin-top: 56px;
+    background-color: #fddc5e;
+    border-radius: 4px;
+    border: 2px solid #F5D176;
+    text-align: center;
+}
+/* link de modificar perfil*/
+.modify{
+    font-weight: bold;
+    background-color: #fddc5e;
+    border-radius: 4px;
+    border: 2px solid #F5D176;
+    text-align: center;
+}
+/* Tarjetas de trabajo creadas por Admin*/
+.target{
+    background-color: cornsilk;
+    border-radius: 39px;
+    padding: 16px;
+    margin: 32px;
+}
+/*Tarjetas de trabajo de scraping*/
+#target.scraping {
+    background-color: cornsilk;
+    border-radius: 80px;
+    padding: 8px;
+    margin: 8px;
+    box-shadow: black 2px;
+    font-size: 10px;
+    text-align: center;
+}
+/********Profile******************/
+.user-profile{
+    background-color: #7697f4;
+    margin:10px 30px;
+    text-align: center;
+    font-weight:100px;
+    padding: 20px;
+    border-radius: 6px;;
+
+}
+
+h2{
+    text-align: center;
+}
+/*contenido tarjetas trabajo*/
+#puesto{
+    font-size: 24px;
+    font-weight: bold;
+}
+#compania{
+ font-size: 16px;
+}
+#descripcion{
+    font-size: 12px;
+}
+#salario{
+    font-size: 16px;
 }
 
 .error-image {
     width: 400px;
 }
+

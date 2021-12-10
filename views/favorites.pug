@@ -6,10 +6,15 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Favoritos
         link(rel="stylesheet", href="/css/styles.css")
+        link(rel="stylesheet", href="/css/normalize.css")
+        <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
     body 
         include ./header
+        
 
-        h1 Lista de Favoritos
+        h2 Lista de Favoritos
         section.user-favorites 
             each fav in favorites
                 article.favorite-info
@@ -20,7 +25,7 @@ html(lang="en")
                     p Salario: #{fav.favorite_salary}
                     p localización: #{fav.favorite_location}
                     form(action=`/api/favorite/?_method=DELETE&favorite=${fav.favorite_id}`, method="post")
-                        input(type="submit", value="Borrar de favotiros")
+                        input#btnSignup(type="submit", value="Borrar de favotiros")
                 hr
 
         script(src="/js/dropdown_menu.js")

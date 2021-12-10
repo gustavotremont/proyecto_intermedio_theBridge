@@ -6,23 +6,28 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Dashboard
         link(rel="stylesheet", href="/css/styles.css")
+        link(rel="stylesheet", href="/css/normalize.css")
+        <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
     body 
-        include ./header         
-        a(href='/dashboard/create') Crear Oferta   
+        include ./header 
+                
+        a.createofert(href='/dashboard/create') Crear Oferta   
 
-        h1 Esto son todas las ofertas de trabajo
-            section 
+        h2 Esto son todas las ofertas de trabajo
+            section.offerSection
                 each offer in result
-                    article 
-                        p Puesto: #{offer.title}
-                        p Compañia: #{offer.companyName}
+                    article.target
+                        p#puesto Puesto: #{offer.title}
+                        p#compania Compañia: #{offer.companyName}
                         a(href=offer.URL) Link a la oferta 
-                        p Salario: #{offer.salary}
-                        p Descripción: #{offer.description}                    
-                        p localización: #{offer.location}
+                        p#salario Salario: #{offer.salary}
+                        p#descripcion Descripción: #{offer.description}                    
+                        p#localizacion localización: #{offer.location}
                         a(href=`/dashboard/edit/?currentOfferId=${offer._id}`) Modificar Oferta 
                         form(action=`/api/ads?_method=DELETE&currentOfferId=${offer._id}`, method="post")
-                            input(type="submit", value="Borrar esta oferta")
-                    hr
+                            input#btnSignup(type="submit", value="Borrar")
+              
                      
         script(src="/js/dropdown_menu.js")    

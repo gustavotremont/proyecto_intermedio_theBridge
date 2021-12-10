@@ -107,7 +107,7 @@ const deleteFavorite = async (favoriteURL, email) => {
 const Favorite = {
     createFavorite,
     getAllFavoritesByUser,
-    deleteFavorite,
+    deleteFavorite
 };
 
 module.exports = Favorite;

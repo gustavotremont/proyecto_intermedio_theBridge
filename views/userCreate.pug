@@ -5,14 +5,18 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Create User
-        link(rel="stylesheet", href="/css/styles.css")
+        link(rel="stylesheet", href="/css/normalize.css")
+        <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
     body 
         include ./header
+        
         a(href="/user") Volver
 
-        h1 Crear usuario 
+        h2 Crear usuario 
         
-        form(action="/api/user" method="POST")
+        form.containerForm(action="/api/user" method="POST")
             h3 Datos de Usuario
 
             label(for="userName") Nombre y Apellido

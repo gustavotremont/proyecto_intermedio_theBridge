@@ -6,22 +6,32 @@ html(lang="en")
       meta(name="viewport", content="width=device-width, initial-scale=1.0")
       title Home
       link(rel="stylesheet", href="/css/styles.css")
+      link(rel="stylesheet", href="/css/normalize.css")
+      <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+
    body 
          include ./header
-         h1 Buscar Oferta
-         form.searchForm(action="/api/search" method="GET")
-            label(for="keywordSearch") Busco ofertas de...
-            input#keywordSearch(type='text' name='keywordSearch' value=typeof keyword != 'undefined' ? keyword : ''  placeholder='Puesto, empresa o palabra clave' required='')
-
-            label(for="locationSearch") En...
-            input#locationSearch(type='text' name='locationSearch' value=typeof location != 'undefined' ? location : '' placeholder='Toda España')
-  
-            input.btnSearch(type='submit' value="Buscar")
+         div.eslogan
+            h2.titleJob Encuentra tu trabajo ideal como Desarrollador
+         div.sectionOffer
+            h2 Buscar Oferta
+            
+            form.searchForm.containerForm(action="/api/search" method="GET")
+        
+               label(for="keywordSearch") Busco ofertas de...
+               input#keywordSearch(type='text' name='keywordSearch' value=typeof keyword != 'undefined' ? keyword : ''  placeholder='Puesto, empresa o palabra clave' required='')
+            
+               label(for="locationSearch") En...
+               input#locationSearch(type='text' name='locationSearch' value=typeof location != 'undefined' ? location : '' placeholder='Toda España')
+            
+               input#btnSignup(type='submit' value="Buscar")
 
          if dataList
-            section 
+            section
                each offer in dataList
-                  article.offer-info 
+                  article#target.scraping.offer-info
                      p.offer-title #{offer.title}
                      p.offer-company-name #{offer.companyName}
                      p.offer-description #{offer.description}
@@ -30,6 +40,6 @@ html(lang="en")
                      a.offer-link(href=offer.url || offer.URL) Link a la oferta
                      if role && role === 2
                         span.offer-favorite.fav-no &#9733;
-                  hr   
+                   
          script(src="/js/dropdown_menu.js") 
          script(src="/js/add_favorites.js")
