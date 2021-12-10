@@ -17,7 +17,7 @@ html(lang="en")
 
         h2 Crear Oferta
         section.container
-                form(action="/api/ads" method="POST")
+                form.containerForm(action="/api/ads" method="POST")
                         label(for="title") Puesto
                         input#title(type='text' name='title' placeholder='Nombre Oferta' required='')
                         

@@ -15,9 +15,9 @@ html(lang="en")
          
         a(href='/dashboard') Volver  
 
-        h1 Modificar Oferta
-        section 
-                form(action=`/api/ads/?_method=PUT&currentOfferId=${offer._id}` method="POST")
+        h2 Modificar Oferta
+        section.container 
+                form.containerForm(action=`/api/ads/?_method=PUT&currentOfferId=${offer._id}` method="POST")
                         label(for="title") Puesto
                         input#title(type='text' name='title' value=offer.title required='')
                         

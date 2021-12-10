@@ -153,6 +153,7 @@ a{
 .offerSection{
     font-size: 15px;
 }
+/* link de crear oferta */
 a.createofert{
     font-weight: bold;
     margin-top: 56px;
@@ -161,13 +162,23 @@ a.createofert{
     border: 2px solid #F5D176;
     text-align: center;
 }
+/* link de modificar perfil*/
+.modify{
+    font-weight: bold;
+    background-color: #fddc5e;
+    border-radius: 4px;
+    border: 2px solid #F5D176;
+    text-align: center;
+}
+/* Tarjetas de trabajo creadas por Admin*/
 .target{
     background-color: cornsilk;
     border-radius: 39px;
     padding: 16px;
     margin: 32px;
 }
-.target.scraping {
+/*Tarjetas de trabajo de scraping*/
+#target.scraping {
     background-color: cornsilk;
     border-radius: 80px;
     padding: 8px;
@@ -190,7 +201,7 @@ a.createofert{
 h2{
     text-align: center;
 }
-
+/*contenido tarjetas trabajo*/
 #puesto{
     font-size: 24px;
     font-weight: bold;

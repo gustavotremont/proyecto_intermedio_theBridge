@@ -12,8 +12,6 @@ html(lang="en")
       <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
 
    body 
-
-   body 
          include ./header
          div.eslogan
             h2.titleJob Encuentra tu trabajo ideal como Desarrollador
@@ -33,7 +31,7 @@ html(lang="en")
          if dataList
             section
                each offer in dataList
-                  article.target.scraping 
+                  article#target.scraping.offer-info
                      p.offer-title #{offer.title}
                      p.offer-company-name #{offer.companyName}
                      p.offer-description #{offer.description}
@@ -42,6 +40,6 @@ html(lang="en")
                      a.offer-link(href=offer.url || offer.URL) Link a la oferta
                      if role && role === 2
                         span.offer-favorite.fav-no &#9733;
-                  hr   
+                   
          script(src="/js/dropdown_menu.js") 
          script(src="/js/add_favorites.js")
